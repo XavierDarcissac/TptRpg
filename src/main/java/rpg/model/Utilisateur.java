@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue("user")
@@ -14,7 +13,7 @@ public class Utilisateur extends Compte {
 	
 
 	@ManyToOne
-	@JoinColumn(name="Hero")
+	@JoinColumn(name="hero_id")
 	private Hero hero;
 	
 
