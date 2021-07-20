@@ -1,5 +1,6 @@
 package rpg.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -36,9 +37,8 @@ public class Hero extends Personnage{
 	private double agilite;
 	@Column()
 	private double vitesse;
-	@Transient
-	//@OneToMany(mappedBy = "hero")
-	private Utilisateur utilisateur;
+	@OneToMany(mappedBy = "hero_id")
+	private List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
 	
 	public Hero() {
 		super();
@@ -69,12 +69,13 @@ public class Hero extends Personnage{
 		this.vie = vie;
 		this.agilite = agilite;
 		this.vitesse = vitesse;
-		this.utilisateur = utilisateur;
+	
 	}
+
 
 	public Hero(TypePersonnage typePersonnage, double coefAttaque, double coefDefense, double coefVie,
 			double coefPrecision, double coefVitesse, double attaque, double defense, double vie, double agilite,
-			double vitesse, Utilisateur utilisateur) {
+			double vitesse, List<Utilisateur> utilisateurs) {
 		this.typePersonnage = typePersonnage;
 		this.coefAttaque = coefAttaque;
 		this.coefDefense = coefDefense;
@@ -86,8 +87,11 @@ public class Hero extends Personnage{
 		this.vie = vie;
 		this.agilite = agilite;
 		this.vitesse = vitesse;
-		this.utilisateur = utilisateur;
+	
 	}
+
+
+
 
 	public TypePersonnage getTypePersonnage() {
 		return typePersonnage;
@@ -177,20 +181,13 @@ public class Hero extends Personnage{
 		this.vitesse = vitesse;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
 
 	@Override
 	public String toString() {
 		return "Hero [typePersonnage=" + typePersonnage + ", coefAttaque=" + coefAttaque + ", coefDefense="
 				+ coefDefense + ", coefVie=" + coefVie + ", coefPrecision=" + coefPrecision + ", coefVitesse="
 				+ coefVitesse + ", attaque=" + attaque + ", defense=" + defense + ", vie=" + vie + ", agilite="
-				+ agilite + ", vitesse=" + vitesse + ", utilisateur=" + utilisateur + "]";
+				+ agilite + ", vitesse=" + vitesse + ", utilisateur=" +  "]";
 	}
 	
 	
