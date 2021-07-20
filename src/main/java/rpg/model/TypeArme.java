@@ -1,5 +1,6 @@
 package rpg.model;
 
-public class TypeArme {
+public enum TypeArme {
+	epee,lance;
 
 }
