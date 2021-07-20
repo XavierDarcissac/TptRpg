@@ -76,6 +76,10 @@ public class Inventaire {
 		this.utilisateur = utilisateur;
 	}
 
+
+
+
+
 	public List<InventairePotion> getInventairePotion() {
 		return inventairePotion;
 	}
@@ -99,6 +103,16 @@ public class Inventaire {
 	public void setInventaireArmure(List<InventaireArmure> inventaireArmure) {
 		this.inventaireArmure = inventaireArmure;
 	}
+
+	@Override
+	public String toString() {
+		return "Inventaire [id=" + id + ", objet=" + objet + ", utilisateur=" + utilisateur + ", inventairePotion="
+				+ inventairePotion + ", inventaireArme=" + inventaireArme + ", inventaireArmure=" + inventaireArmure
+				+ "]";
+	}
+
+
+
 	
 	
 	
