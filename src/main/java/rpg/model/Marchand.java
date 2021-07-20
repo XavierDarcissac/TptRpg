@@ -23,13 +23,10 @@ public class Marchand {
 	private int version;
 	@Column(name="nom")
 	private String nom;
-	//@Transient
 	@OneToMany(mappedBy = "marchand")
 	private List<MarchandArme> armes = new ArrayList<MarchandArme>();
-	//@Transient
 	@OneToMany(mappedBy = "marchand")
 	private List<MarchandArmure> armures = new ArrayList<MarchandArmure>();
-	//@Transient
 	@OneToMany(mappedBy = "marchand")
 	private List<MarchandPotion> potions = new ArrayList<MarchandPotion>();
 	

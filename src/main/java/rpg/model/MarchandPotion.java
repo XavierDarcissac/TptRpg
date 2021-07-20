@@ -22,9 +22,9 @@ public class MarchandPotion {
 	@Column(name="quatite")
 	private double quantite;
 	
-	@Transient
-	//@ManyToOne
-	//@JoinColumn(name="potion_id")
+	//@Transient
+	@ManyToOne
+	@JoinColumn(name="potion_id")
 	private Potion potion;
 	//@Transient
 	@ManyToOne
