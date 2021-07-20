@@ -41,10 +41,9 @@ public class Arme{
 	@Column(name="prixVente")
 	private double prixVente;
 	
-	//@Transient
 	@OneToMany(mappedBy = "arme")
 	private List<MarchandArme> marchandArmes = new ArrayList<MarchandArme>();
-	@Transient
+	@OneToMany(mappedBy = "arme")
 	private List<InventaireArmure> inventaireArmures = new ArrayList<InventaireArmure>();
 	
 	public Arme(Long id, int version, String nom, TypeArme typeArme, String description, double attaque,
