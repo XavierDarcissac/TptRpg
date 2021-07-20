@@ -69,6 +69,12 @@ public class InventairePotion {
 	public void setPotion(Potion potion) {
 		this.potion = potion;
 	}
+
+	@Override
+	public String toString() {
+		return "InventairePotion [id=" + id + ", qte=" + qte + ", inventaire=" + inventaire + ", potion=" + potion
+				+ "]";
+	}
 	
 	
 	
