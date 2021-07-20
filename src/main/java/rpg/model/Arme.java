@@ -44,11 +44,12 @@ public class Arme{
 	@OneToMany(mappedBy = "arme")
 	private List<MarchandArme> marchandArmes = new ArrayList<MarchandArme>();
 	@OneToMany(mappedBy = "arme")
-	private List<InventaireArmure> inventaireArmures = new ArrayList<InventaireArmure>();
+	private List<InventaireArme> inventaireArme = new ArrayList<InventaireArme>();
 	
-	public Arme(Long id, int version, String nom, TypeArme typeArme, String description, double attaque,
-			double precision, double prixAchat, double prixVente, List<MarchandArme> marchandArmes,
-			List<InventaireArmure> inventaireArmures) {
+	
+
+	public Arme(Long id, int version, String nom, TypeArme typeArme, String description, double attaque, double agilite,
+			double prixAchat, double prixVente, List<MarchandArme> marchandArmes, List<InventaireArme> inventaireArme) {
 		super();
 		this.id = id;
 		this.version = version;
@@ -56,12 +57,30 @@ public class Arme{
 		this.typeArme = typeArme;
 		this.description = description;
 		this.attaque = attaque;
-		this.agilite = precision;
+		this.agilite = agilite;
 		this.prixAchat = prixAchat;
 		this.prixVente = prixVente;
 		this.marchandArmes = marchandArmes;
-		this.inventaireArmures = inventaireArmures;
+		this.inventaireArme = inventaireArme;
 	}
+
+
+	
+
+	public Arme(String nom, TypeArme typeArme, String description, double attaque, double agilite, double prixAchat,
+			double prixVente) {
+		super();
+		this.nom = nom;
+		this.typeArme = typeArme;
+		this.description = description;
+		this.attaque = attaque;
+		this.agilite = agilite;
+		this.prixAchat = prixAchat;
+		this.prixVente = prixVente;
+	}
+
+
+
 
 	public Arme() {
 		super();
@@ -69,17 +88,7 @@ public class Arme{
 	
 	
 
-	public Arme(String nom, TypeArme typeArme, String description, double attaque, double precision, double prixAchat,
-			double prixVente) {
-		super();
-		this.nom = nom;
-		this.typeArme = typeArme;
-		this.description = description;
-		this.attaque = attaque;
-		this.agilite = precision;
-		this.prixAchat = prixAchat;
-		this.prixVente = prixVente;
-	}
+
 
 	public Long getId() {
 		return id;
@@ -161,21 +170,23 @@ public class Arme{
 		this.marchandArmes = marchandArmes;
 	}
 
-	public List<InventaireArmure> getInventaireArmures() {
-		return inventaireArmures;
+	public List<InventaireArme> getInventaireArme() {
+		return inventaireArme;
 	}
 
-	public void setInventaireArmures(List<InventaireArmure> inventaireArmures) {
-		this.inventaireArmures = inventaireArmures;
+	public void setInventaireArme(List<InventaireArme> inventaireArme) {
+		this.inventaireArme = inventaireArme;
 	}
 
 	@Override
 	public String toString() {
 		return "Arme [id=" + id + ", version=" + version + ", nom=" + nom + ", typeArme=" + typeArme + ", description="
 				+ description + ", attaque=" + attaque + ", agilite=" + agilite + ", prixAchat=" + prixAchat
-				+ ", prixVente=" + prixVente + ", marchandArmes=" + marchandArmes + ", inventaireArmures="
-				+ inventaireArmures + "]";
+				+ ", prixVente=" + prixVente + ", marchandArmes=" + marchandArmes + ", inventaireArme=" + inventaireArme
+				+ "]";
 	}
+
+	
 
 
 	

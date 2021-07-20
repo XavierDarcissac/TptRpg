@@ -6,25 +6,33 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue("user")
 public class Utilisateur extends Compte {
 	
-	@ManyToOne
-	@JoinColumn(name="Hero")
+	@Transient
+	//@ManyToOne
+	//@JoinColumn(name="Hero")
 	private Hero hero;
-	@OneToOne
-	@JoinColumn(name="inventaire")
+	
+	@Transient
+	//@OneToOne
+	//@JoinColumn(name="inventaire")
 	private Inventaire inventaire;
-	@ManyToOne
-	@JoinColumn(name="Arme")
+	@Transient
+	
+	//@ManyToOne
+	//@JoinColumn(name="Arme")
 	private Arme arme;
-	@ManyToOne
-	@JoinColumn(name="Armure")
+	@Transient
+	//@ManyToOne
+	//@JoinColumn(name="Armure")
 	private Armure armure;
-	@OneToOne
-	@JoinColumn(name="histoire")
+	@Transient
+	//@OneToOne
+	//@JoinColumn(name="histoire")
 	private Histoire histoire;
 
 	

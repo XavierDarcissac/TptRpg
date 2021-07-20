@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue("hero")
@@ -35,7 +36,8 @@ public class Hero extends Personnage{
 	private double agilite;
 	@Column()
 	private double vitesse;
-	@OneToMany(mappedBy = "hero")
+	@Transient
+	//@OneToMany(mappedBy = "hero")
 	private Utilisateur utilisateur;
 	
 	public Hero() {
