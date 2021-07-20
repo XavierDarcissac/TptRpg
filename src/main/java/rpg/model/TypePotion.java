@@ -1,5 +1,5 @@
 package rpg.model;
 
-public class TypePotion {
-
+public enum TypePotion {
+	PAINT_AU_CHOCOLAT, CHOCOLATINE, CROISSANT;
 }
