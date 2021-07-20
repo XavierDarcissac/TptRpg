@@ -23,7 +23,7 @@ public class Monstre extends Personnage {
 	@Column()
 	private double vie;
 	@Column()
-	private double precision;
+	private double agilite;
 	@Column()
 	private double vitesse;
 	@Column()
@@ -51,13 +51,13 @@ public class Monstre extends Personnage {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Monstre(TypeMonstre typeMonstre, double attaque, double defense, double vie, double precision,
+	public Monstre(TypeMonstre typeMonstre, double attaque, double defense, double vie, double agilite,
 			double vitesse, int gold, int exp, Arme arme, Armure armure) {
 		this.typeMonstre = typeMonstre;
 		this.attaque = attaque;
 		this.defense = defense;
 		this.vie = vie;
-		this.precision = precision;
+		this.agilite = agilite;
 		this.vitesse = vitesse;
 		this.gold = gold;
 		this.exp = exp;
@@ -65,14 +65,14 @@ public class Monstre extends Personnage {
 		this.armure = armure;
 	}
 	
-	public Monstre(Long id, int version, String nom, List<Equipe> equipes, TypeMonstre typeMonstre, double attaque, double defense, double vie, double precision,
+	public Monstre(Long id, int version, String nom, List<Equipe> equipes, TypeMonstre typeMonstre, double attaque, double defense, double vie, double agilite,
 			double vitesse, int gold, int exp, Arme arme, Armure armure) {
 		super(id, version, nom, equipes);
 		this.typeMonstre = typeMonstre;
 		this.attaque = attaque;
 		this.defense = defense;
 		this.vie = vie;
-		this.precision = precision;
+		this.agilite = agilite;
 		this.vitesse = vitesse;
 		this.gold = gold;
 		this.exp = exp;
@@ -122,12 +122,12 @@ public class Monstre extends Personnage {
 
 
 	public double getPrecision() {
-		return precision;
+		return agilite;
 	}
 
 
-	public void setPrecision(double precision) {
-		this.precision = precision;
+	public void setPrecision(double agilite) {
+		this.agilite = agilite;
 	}
 
 
@@ -184,7 +184,7 @@ public class Monstre extends Personnage {
 	@Override
 	public String toString() {
 		return "Monstre [typeMonstre=" + typeMonstre + ", attaque=" + attaque + ", defense=" + defense + ", vie=" + vie
-				+ ", precision=" + precision + ", vitesse=" + vitesse + ", gold=" + gold + ", exp=" + exp + ", arme="
+				+ ", agilite=" + agilite + ", vitesse=" + vitesse + ", gold=" + gold + ", exp=" + exp + ", arme="
 				+ arme + ", armure=" + armure + "]";
 	}
 	

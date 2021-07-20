@@ -32,7 +32,7 @@ public class Hero extends Personnage{
 	@Column()
 	private double vie;
 	@Column()
-	private double precision;
+	private double agilite;
 	@Column()
 	private double vitesse;
 	@OneToMany(mappedBy = "hero")
@@ -53,7 +53,7 @@ public class Hero extends Personnage{
 	}
 
 	public Hero(Long id, int version, String nom, List<Equipe> equipes, TypePersonnage typePersonnage, double coefAttaque, double coefDefense, double coefVie,
-			double coefPrecision, double coefVitesse, double attaque, double defense, double vie, double precision,
+			double coefPrecision, double coefVitesse, double attaque, double defense, double vie, double agilite,
 			double vitesse, Utilisateur utilisateur) {
 		super(id, version, nom, equipes);
 		this.typePersonnage = typePersonnage;
@@ -65,13 +65,13 @@ public class Hero extends Personnage{
 		this.attaque = attaque;
 		this.defense = defense;
 		this.vie = vie;
-		this.precision = precision;
+		this.agilite = agilite;
 		this.vitesse = vitesse;
 		this.utilisateur = utilisateur;
 	}
 
 	public Hero(TypePersonnage typePersonnage, double coefAttaque, double coefDefense, double coefVie,
-			double coefPrecision, double coefVitesse, double attaque, double defense, double vie, double precision,
+			double coefPrecision, double coefVitesse, double attaque, double defense, double vie, double agilite,
 			double vitesse, Utilisateur utilisateur) {
 		this.typePersonnage = typePersonnage;
 		this.coefAttaque = coefAttaque;
@@ -82,7 +82,7 @@ public class Hero extends Personnage{
 		this.attaque = attaque;
 		this.defense = defense;
 		this.vie = vie;
-		this.precision = precision;
+		this.agilite = agilite;
 		this.vitesse = vitesse;
 		this.utilisateur = utilisateur;
 	}
@@ -160,11 +160,11 @@ public class Hero extends Personnage{
 	}
 
 	public double getPrecision() {
-		return precision;
+		return agilite;
 	}
 
-	public void setPrecision(double precision) {
-		this.precision = precision;
+	public void setPrecision(double agilite) {
+		this.agilite = agilite;
 	}
 
 	public double getVitesse() {
@@ -187,8 +187,8 @@ public class Hero extends Personnage{
 	public String toString() {
 		return "Hero [typePersonnage=" + typePersonnage + ", coefAttaque=" + coefAttaque + ", coefDefense="
 				+ coefDefense + ", coefVie=" + coefVie + ", coefPrecision=" + coefPrecision + ", coefVitesse="
-				+ coefVitesse + ", attaque=" + attaque + ", defense=" + defense + ", vie=" + vie + ", precision="
-				+ precision + ", vitesse=" + vitesse + ", utilisateur=" + utilisateur + "]";
+				+ coefVitesse + ", attaque=" + attaque + ", defense=" + defense + ", vie=" + vie + ", agilite="
+				+ agilite + ", vitesse=" + vitesse + ", utilisateur=" + utilisateur + "]";
 	}
 	
 	
