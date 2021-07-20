@@ -1,5 +1,5 @@
 package rpg.model;
 
-public class TypeArmure {
+public enum TypeArmure {
 
 }
