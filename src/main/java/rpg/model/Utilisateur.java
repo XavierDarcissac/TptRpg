@@ -11,18 +11,25 @@ import javax.persistence.OneToOne;
 @DiscriminatorValue("user")
 public class Utilisateur extends Compte {
 	
+
 	@ManyToOne
 	@JoinColumn(name="hero_id")
 	private Hero hero;
+	
+
 	@OneToOne
 	@JoinColumn(name="inventaire")
 	private Inventaire inventaire;
+	
+	
 	@ManyToOne
 	@JoinColumn(name="Arme")
 	private Arme arme;
+	
 	@ManyToOne
 	@JoinColumn(name="Armure")
 	private Armure armure;
+	
 	@OneToOne
 	@JoinColumn(name="histoire")
 	private Histoire histoire;

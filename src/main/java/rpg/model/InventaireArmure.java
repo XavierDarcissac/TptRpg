@@ -22,11 +22,11 @@ public class InventaireArmure {
 	
 	@ManyToOne
 	@JoinColumn(name="armure_id")
-	private Armure armures;
+	private Armure armure;
 	
 	@ManyToOne
 	@JoinColumn(name="inventaire_id")
-	private Inventaire inventaires;
+	private Inventaire inventaire;
 	
 	
 	public InventaireArmure() {
@@ -34,11 +34,14 @@ public class InventaireArmure {
 	}
 
 
-	public InventaireArmure(Long id, double qte, Armure armures, Inventaire inventaires) {
+
+
+
+	public InventaireArmure(Long id, double qte, Armure armure, Inventaire inventaire) {
 		this.id = id;
 		this.qte = qte;
-		this.armures = armures;
-		this.inventaires = inventaires;
+		this.armure = armure;
+		this.inventaire = inventaire;
 	}
 
 
@@ -46,47 +49,51 @@ public class InventaireArmure {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
 	public double getQte() {
 		return qte;
 	}
-
 
 	public void setQte(double qte) {
 		this.qte = qte;
 	}
 
 
-	public Armure getArmures() {
-		return armures;
+	public Armure getArmure() {
+		return armure;
 	}
 
 
-	public void setArmures(Armure armures) {
-		this.armures = armures;
+	public void setArmure(Armure armure) {
+		this.armure = armure;
+
+	}
+
+	public Inventaire getInventaire() {
+		return inventaire;
 	}
 
 
-	public Inventaire getInventaires() {
-		return inventaires;
+	public void setInventaire(Inventaire inventaire) {
+		this.inventaire = inventaire;
 	}
 
 
-	public void setInventaires(Inventaire inventaires) {
-		this.inventaires = inventaires;
-	}
+
+
 
 
 	@Override
 	public String toString() {
-		return "InventaireArmure [id=" + id + ", qte=" + qte + ", armures=" + armures + ", inventaires=" + inventaires
+		return "InventaireArmure [id=" + id + ", qte=" + qte + ", armure=" + armure + ", inventaire=" + inventaire
 				+ "]";
 	}
+
+
+
 
 	
 	

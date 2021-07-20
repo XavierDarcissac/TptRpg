@@ -32,25 +32,27 @@ public class Potion {
 	@Column
 	private double prixVente;
 	@OneToMany(mappedBy = "potion")
-	private List<InventairePotion> inventairePotion = new ArrayList<InventairePotion>();
+	private List<InventairePotion> inventairePotions = new ArrayList<InventairePotion>();
 	@OneToMany(mappedBy = "potion")
-	private List<MarchandPotion> marchandPotion = new ArrayList<MarchandPotion>();
+	private List<MarchandPotion> marchandPotions = new ArrayList<MarchandPotion>();
 	
 	public Potion() {
 		super();
 	}
 
+	
 	public Potion(Long id, String nom, TypePotion type, double valeur, double prixAchat, double prixVente,
-			List<InventairePotion> inventairePotion, List<MarchandPotion> marchandPotion) {
+			List<InventairePotion> inventairePotions, List<MarchandPotion> marchandPotions) {
 		this.id = id;
 		this.nom = nom;
 		this.type = type;
 		this.valeur = valeur;
 		this.prixAchat = prixAchat;
 		this.prixVente = prixVente;
-		this.inventairePotion = inventairePotion;
-		this.marchandPotion = marchandPotion;
+		this.inventairePotions = inventairePotions;
+		this.marchandPotions = marchandPotions;
 	}
+
 
 	public Long getId() {
 		return id;
@@ -100,21 +102,36 @@ public class Potion {
 		this.prixVente = prixVente;
 	}
 
-	public List<InventairePotion> getInventairePotion() {
-		return inventairePotion;
+
+	public List<InventairePotion> getInventairePotions() {
+		return inventairePotions;
 	}
 
-	public void setInventairePotion(List<InventairePotion> inventairePotion) {
-		this.inventairePotion = inventairePotion;
+
+	public void setInventairePotions(List<InventairePotion> inventairePotions) {
+		this.inventairePotions = inventairePotions;
 	}
 
-	public List<MarchandPotion> getMarchandPotion() {
-		return marchandPotion;
+
+	public List<MarchandPotion> getMarchandPotions() {
+		return marchandPotions;
 	}
 
-	public void setMarchandPotion(List<MarchandPotion> marchandPotion) {
-		this.marchandPotion = marchandPotion;
+
+	public void setMarchandPotions(List<MarchandPotion> marchandPotions) {
+		this.marchandPotions = marchandPotions;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Potion [id=" + id + ", nom=" + nom + ", type=" + type + ", valeur=" + valeur + ", prixAchat="
+				+ prixAchat + ", prixVente=" + prixVente + ", inventairePotions=" + inventairePotions
+				+ ", marchandPotions=" + marchandPotions + "]";
+	}
+
+	
+	
 	
 	
 	

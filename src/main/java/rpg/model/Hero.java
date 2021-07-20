@@ -36,7 +36,7 @@ public class Hero extends Personnage{
 	private double agilite;
 	@Column()
 	private double vitesse;
-	@OneToMany(mappedBy = "hero_id")
+	@OneToMany(mappedBy = "hero")
 	private List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
 	
 	public Hero() {

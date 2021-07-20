@@ -44,7 +44,6 @@ public class Armure {
 	@Column(name="prixAchat")
 	private double prixAchat;
 	
-	//@Transient
 	@OneToMany(mappedBy = "armure")
 	private List<MarchandArmure> marchandArmures = new ArrayList<MarchandArmure>();
 	@OneToMany(mappedBy = "armure")

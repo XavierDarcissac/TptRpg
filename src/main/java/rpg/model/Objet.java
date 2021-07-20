@@ -77,6 +77,12 @@ public class Objet {
 		this.inventaire = inventaire;
 	}
 
+	@Override
+	public String toString() {
+		return "Objet [id=" + id + ", nom=" + nom + ", description=" + description + ", qte=" + qte + ", inventaire="
+				+ inventaire + "]";
+	}
+
 
 	
 	
