@@ -26,6 +26,7 @@ public class MarchandPotion {
 	//@ManyToOne
 	//@JoinColumn(name="potion_id")
 	private Potion potion;
+	//@Transient
 	@ManyToOne
 	@JoinColumn(name="marchand_id")
 	private Marchand marchand;

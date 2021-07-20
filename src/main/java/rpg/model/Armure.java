@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -25,13 +26,18 @@ public class Armure {
 	private int version;
 	@Column(name="nom")
 	private String nom;
+	
 	@Column(name="typeArmure")
 	@Enumerated(EnumType.STRING)
 	private TypeArmure typearmure;
-	@Column(name="description",length = 100)
+	
+	@Column(name="description")
+	@Lob
 	private String description;
+	
 	@Column(name="defense")
 	private double defense;
+	
 	@Column(name="vitesse")
 	private double vitesse;
 	@Column(name="prixVente")
@@ -39,6 +45,7 @@ public class Armure {
 	@Column(name="prixAchat")
 	private double prixAchat;
 	
+	//@Transient
 	@OneToMany(mappedBy = "armure")
 	private List<MarchandArmure> marchandArmures = new ArrayList<MarchandArmure>();
 	@Transient
@@ -62,6 +69,20 @@ public class Armure {
 	}
 	
 	
+
+	public Armure(String nom, TypeArmure typearmure, String description, double defense, double vitesse,
+			double prixVente, double prixAchat) {
+		super();
+		this.nom = nom;
+		this.typearmure = typearmure;
+		this.description = description;
+		this.defense = defense;
+		this.vitesse = vitesse;
+		this.prixVente = prixVente;
+		this.prixAchat = prixAchat;
+	}
+
+
 
 	public Armure() {
 		super();

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 @Entity
@@ -21,9 +22,11 @@ public class MarchandArme {
 	@Column(name="quantite")
 	private double quantite;
 	
+	//@Transient
 	@ManyToOne
 	@JoinColumn(name="arme_id")
 	private Arme arme;
+	//@Transient
 	@ManyToOne
 	@JoinColumn(name="marchand_id")
 	private Marchand marchand;
