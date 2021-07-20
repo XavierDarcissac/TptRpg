@@ -1,8 +1,5 @@
 package rpg.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,61 +22,72 @@ public class InventaireArmure {
 	
 	@ManyToOne
 	@JoinColumn(name="armure_id")
-	private List<Armure> armures = new ArrayList<Armure>();
+	private Armure armures;
 	
 	@ManyToOne
 	@JoinColumn(name="inventaire_id")
-	private List<Inventaire> inventaires = new ArrayList<Inventaire>();
+	private Inventaire inventaires;
 	
 	
 	public InventaireArmure() {
 		super();
 	}
 
-	public InventaireArmure(Long id, double qte, List<Armure> armures, List<Inventaire> inventaires) {
+
+	public InventaireArmure(Long id, double qte, Armure armures, Inventaire inventaires) {
 		this.id = id;
 		this.qte = qte;
 		this.armures = armures;
 		this.inventaires = inventaires;
 	}
+
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	public double getQte() {
 		return qte;
 	}
 
+
 	public void setQte(double qte) {
 		this.qte = qte;
 	}
 
-	public List<Armure> getArmures() {
+
+	public Armure getArmures() {
 		return armures;
 	}
 
-	public void setArmures(List<Armure> armures) {
+
+	public void setArmures(Armure armures) {
 		this.armures = armures;
 	}
 
-	public List<Inventaire> getInventaires() {
+
+	public Inventaire getInventaires() {
 		return inventaires;
 	}
 
-	public void setInventaires(List<Inventaire> inventaires) {
+
+	public void setInventaires(Inventaire inventaires) {
 		this.inventaires = inventaires;
 	}
+
 
 	@Override
 	public String toString() {
 		return "InventaireArmure [id=" + id + ", qte=" + qte + ", armures=" + armures + ", inventaires=" + inventaires
 				+ "]";
 	}
+
 	
 	
 	
