@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.Version;
 
 @Entity
@@ -48,7 +47,7 @@ public class Armure {
 	//@Transient
 	@OneToMany(mappedBy = "armure")
 	private List<MarchandArmure> marchandArmures = new ArrayList<MarchandArmure>();
-	@Transient
+	@OneToMany(mappedBy = "armure")
 	private List<InventaireArmure> inventaireArmures = new ArrayList<InventaireArmure>();
 	
 	public Armure(Long id, int version, String nom, TypeArmure typearmure, String description, double defense,
