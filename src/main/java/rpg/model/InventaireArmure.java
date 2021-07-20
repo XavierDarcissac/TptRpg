@@ -34,11 +34,14 @@ public class InventaireArmure {
 	}
 
 
-	public InventaireArmure(Long id, double qte, Armure armures, Inventaire inventaires) {
+
+
+
+	public InventaireArmure(Long id, double qte, Armure armure, Inventaire inventaire) {
 		this.id = id;
 		this.qte = qte;
-		this.armure = armures;
-		this.inventaire = inventaires;
+		this.armure = armure;
+		this.inventaire = inventaire;
 	}
 
 
@@ -46,16 +49,13 @@ public class InventaireArmure {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
 	public double getQte() {
 		return qte;
 	}
-
 
 	public void setQte(double qte) {
 		this.qte = qte;
@@ -67,26 +67,33 @@ public class InventaireArmure {
 	}
 
 
-	public void setArmure(Armure armures) {
-		this.armure = armures;
-	}
+	public void setArmure(Armure armure) {
+		this.armure = armure;
 
+	}
 
 	public Inventaire getInventaire() {
 		return inventaire;
 	}
 
 
-	public void setInventaire(Inventaire inventaires) {
-		this.inventaire = inventaires;
+	public void setInventaire(Inventaire inventaire) {
+		this.inventaire = inventaire;
 	}
+
+
+
+
 
 
 	@Override
 	public String toString() {
-		return "InventaireArmure [id=" + id + ", qte=" + qte + ", armures=" + armure + ", inventaires=" + inventaire
+		return "InventaireArmure [id=" + id + ", qte=" + qte + ", armure=" + armure + ", inventaire=" + inventaire
 				+ "]";
 	}
+
+
+
 
 	
 	

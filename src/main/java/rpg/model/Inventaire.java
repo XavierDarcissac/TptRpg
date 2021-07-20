@@ -76,29 +76,44 @@ public class Inventaire {
 		this.utilisateur = utilisateur;
 	}
 
-	public List<InventairePotion> getInventairePotion() {
-		return inventairePotion;
+
+	public List<InventairePotion> getInventairePotions() {
+		return inventairePotions;
 	}
 
-	public void setInventairePotion(List<InventairePotion> inventairePotion) {
-		this.inventairePotion = inventairePotion;
+
+	public void setInventairePotions(List<InventairePotion> inventairePotions) {
+		this.inventairePotions = inventairePotions;
 	}
 
-	public List<InventaireArme> getInventaireArme() {
-		return inventaireArme;
+
+	public List<InventaireArme> getInventaireArmes() {
+		return inventaireArmes;
 	}
 
-	public void setInventaireArme(List<InventaireArme> inventaireArme) {
-		this.inventaireArme = inventaireArme;
+
+	public void setInventaireArmes(List<InventaireArme> inventaireArmes) {
+		this.inventaireArmes = inventaireArmes;
 	}
 
-	public List<InventaireArmure> getInventaireArmure() {
-		return inventaireArmure;
+
+	public List<InventaireArmure> getInventaireArmures() {
+		return inventaireArmures;
 	}
 
-	public void setInventaireArmure(List<InventaireArmure> inventaireArmure) {
-		this.inventaireArmure = inventaireArmure;
+
+	public void setInventaireArmures(List<InventaireArmure> inventaireArmures) {
+		this.inventaireArmures = inventaireArmures;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Inventaire [id=" + id + ", objet=" + objet + ", utilisateur=" + utilisateur + ", inventairePotions="
+				+ inventairePotions + ", inventaireArmes=" + inventaireArmes + ", inventaireArmures="
+				+ inventaireArmures + "]";
+	}
+
 	
 	
 	
