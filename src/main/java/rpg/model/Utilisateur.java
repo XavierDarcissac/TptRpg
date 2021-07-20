@@ -12,27 +12,27 @@ import javax.persistence.Transient;
 @DiscriminatorValue("user")
 public class Utilisateur extends Compte {
 	
-	@Transient
-	//@ManyToOne
-	//@JoinColumn(name="Hero")
+
+	@ManyToOne
+	@JoinColumn(name="Hero")
 	private Hero hero;
 	
-	@Transient
-	//@OneToOne
-	//@JoinColumn(name="inventaire")
+
+	@OneToOne
+	@JoinColumn(name="inventaire")
 	private Inventaire inventaire;
-	@Transient
 	
-	//@ManyToOne
-	//@JoinColumn(name="Arme")
+	
+	@ManyToOne
+	@JoinColumn(name="Arme")
 	private Arme arme;
-	@Transient
-	//@ManyToOne
-	//@JoinColumn(name="Armure")
+	
+	@ManyToOne
+	@JoinColumn(name="Armure")
 	private Armure armure;
-	@Transient
-	//@OneToOne
-	//@JoinColumn(name="histoire")
+	
+	@OneToOne
+	@JoinColumn(name="histoire")
 	private Histoire histoire;
 
 	
