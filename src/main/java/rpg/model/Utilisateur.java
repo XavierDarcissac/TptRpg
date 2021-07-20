@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 public class Utilisateur extends Compte {
 	
 	@ManyToOne
-	@JoinColumn(name="Hero")
+	@JoinColumn(name="Hero_id")
 	private Hero hero;
 	@OneToOne
 	@JoinColumn(name="inventaire")
