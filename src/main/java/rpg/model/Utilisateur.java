@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue("user")
@@ -34,7 +35,7 @@ public class Utilisateur extends Compte {
 	@Column()
 	private double defense;
 	@Column()
-	private double precision;
+	private double agilite;
 	@Column()
 	private double vitesse;
 	@Column()
@@ -44,7 +45,7 @@ public class Utilisateur extends Compte {
 	@Column()
 	private double defenseMax;
 	@Column()
-	private double precisionMax;
+	private double agiliteMax;
 	@Column()
 	private double vitesseMax;
 	@Column()
@@ -76,8 +77,8 @@ public class Utilisateur extends Compte {
 		// TODO Auto-generated constructor stub
 	}
 	public Utilisateur(Long id, int version, String pseudo, String mail, String mdp, Hero hero, Inventaire inventaire, Arme arme, Armure armure, Histoire histoire, double vie,
-			double attaque, double defense, double precision, double vitesse, double vieMax, double attaqueMax,
-			double defenseMax, double precisionMax, double vitesseMax, int cptEmpoisonnement, int cptEtourdissement,
+			double attaque, double defense, double agilite, double vitesse, double vieMax, double attaqueMax,
+			double defenseMax, double agiliteMax, double vitesseMax, int cptEmpoisonnement, int cptEtourdissement,
 			int cptSaignement, int cptBrulure, int cptCombat, int cptCombatGagne, int cptMonstreVaincu, int exp) {
 		super(id, version, pseudo, mail, mdp);
 		this.hero = hero;
@@ -88,12 +89,12 @@ public class Utilisateur extends Compte {
 		this.vie = vie;
 		this.attaque = attaque;
 		this.defense = defense;
-		this.precision = precision;
+		this.agilite = agilite;
 		this.vitesse = vitesse;
 		this.vieMax = vieMax;
 		this.attaqueMax = attaqueMax;
 		this.defenseMax = defenseMax;
-		this.precisionMax = precisionMax;
+		this.agiliteMax = agiliteMax;
 		this.vitesseMax = vitesseMax;
 		this.cptEmpoisonnement = cptEmpoisonnement;
 		this.cptEtourdissement = cptEtourdissement;
@@ -107,8 +108,8 @@ public class Utilisateur extends Compte {
 	
 	
 	public Utilisateur(Hero hero, Inventaire inventaire, Arme arme, Armure armure, Histoire histoire, double vie,
-			double attaque, double defense, double precision, double vitesse, double vieMax, double attaqueMax,
-			double defenseMax, double precisionMax, double vitesseMax, int cptEmpoisonnement, int cptEtourdissement,
+			double attaque, double defense, double agilite, double vitesse, double vieMax, double attaqueMax,
+			double defenseMax, double agiliteMax, double vitesseMax, int cptEmpoisonnement, int cptEtourdissement,
 			int cptSaignement, int cptBrulure, int cptCombat, int cptCombatGagne, int cptMonstreVaincu, int exp) {
 		this.hero = hero;
 		this.inventaire = inventaire;
@@ -118,12 +119,12 @@ public class Utilisateur extends Compte {
 		this.vie = vie;
 		this.attaque = attaque;
 		this.defense = defense;
-		this.precision = precision;
+		this.agilite = agilite;
 		this.vitesse = vitesse;
 		this.vieMax = vieMax;
 		this.attaqueMax = attaqueMax;
 		this.defenseMax = defenseMax;
-		this.precisionMax = precisionMax;
+		this.agiliteMax = agiliteMax;
 		this.vitesseMax = vitesseMax;
 		this.cptEmpoisonnement = cptEmpoisonnement;
 		this.cptEtourdissement = cptEtourdissement;
@@ -183,10 +184,10 @@ public class Utilisateur extends Compte {
 		this.defense = defense;
 	}
 	public double getPrecision() {
-		return precision;
+		return agilite;
 	}
-	public void setPrecision(double precision) {
-		this.precision = precision;
+	public void setPrecision(double agilite) {
+		this.agilite = agilite;
 	}
 	public double getVitesse() {
 		return vitesse;
@@ -213,10 +214,10 @@ public class Utilisateur extends Compte {
 		this.defenseMax = defenseMax;
 	}
 	public double getPrecisionMax() {
-		return precisionMax;
+		return agiliteMax;
 	}
-	public void setPrecisionMax(double precisionMax) {
-		this.precisionMax = precisionMax;
+	public void setPrecisionMax(double agiliteMax) {
+		this.agiliteMax = agiliteMax;
 	}
 	public double getVitesseMax() {
 		return vitesseMax;
@@ -276,8 +277,8 @@ public class Utilisateur extends Compte {
 	public String toString() {
 		return "Utilisateur [hero=" + hero + ", inventaire=" + inventaire + ", arme=" + arme + ", armure=" + armure
 				+ ", histoire=" + histoire + ", vie=" + vie + ", attaque=" + attaque + ", defense=" + defense
-				+ ", precision=" + precision + ", vitesse=" + vitesse + ", vieMax=" + vieMax + ", attaqueMax="
-				+ attaqueMax + ", defenseMax=" + defenseMax + ", precisionMax=" + precisionMax + ", vitesseMax="
+				+ ", agilite=" + agilite + ", vitesse=" + vitesse + ", vieMax=" + vieMax + ", attaqueMax="
+				+ attaqueMax + ", defenseMax=" + defenseMax + ", agiliteMax=" + agiliteMax + ", vitesseMax="
 				+ vitesseMax + ", cptEmpoisonnement=" + cptEmpoisonnement + ", cptEtourdissement=" + cptEtourdissement
 				+ ", cptSaignement=" + cptSaignement + ", cptBrulure=" + cptBrulure + ", cptCombat=" + cptCombat
 				+ ", cptCombatGagne=" + cptCombatGagne + ", cptMonstreVaincu=" + cptMonstreVaincu + ", exp=" + exp
