@@ -179,6 +179,8 @@ public class Hero extends Personnage{
 	public void setVitesse(double vitesse) {
 		this.vitesse = vitesse;
 	}
+	
+	
 
 
 	@Override

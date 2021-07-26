@@ -1,5 +1,7 @@
 package rpg.model;
 
+import java.util.Scanner;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -71,6 +73,8 @@ public class Utilisateur extends Compte {
 	private int cptMonstreVaincu;
 	@Column()
 	private int exp;
+	
+	
 	public Utilisateur() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -290,6 +294,85 @@ public class Utilisateur extends Compte {
 				+ ", cptSaignement=" + cptSaignement + ", cptBrulure=" + cptBrulure + ", cptCombat=" + cptCombat
 				+ ", cptCombatGagne=" + cptCombatGagne + ", cptMonstreVaincu=" + cptMonstreVaincu + ", exp=" + exp
 				+ "]";
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////// METHOD Pour le jeu ////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public static int saisieInt(String msg) 
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println(msg);
+		return sc.nextInt();
+	}
+	
+	
+	/*
+	 * Objectif : Retablir l'ensemble des attributs aux valeurs maximums
+	 * Parametre : 
+	 * 
+	 */
+	
+	public void reposTotal()
+	{
+		if(this.vie != this.vieMax) {
+			this.vie = this.vieMax;
+		}
+		
+		if(this.attaque != this.attaqueMax) {
+			this.attaque = this.attaqueMax;
+		}
+		
+		if(this.defense != this.defenseMax) {
+			this.defense = this.defenseMax;
+		}
+		
+		if(this.agilite != this.agiliteMax) {
+			this.agilite = this.agiliteMax;
+		}
+		
+		if(this.vitesse != this.vitesseMax) {
+			this.vitesse = this.vitesseMax;
+		}
+		
+		if(this.cptEmpoisonnement != 0) {
+			this.cptEmpoisonnement = 0;
+		}
+		
+		if(this.cptEtourdissement != 0) {
+			this.cptEtourdissement = 0;
+		}
+		
+		if(this.cptSaignement != 0) {
+			this.cptSaignement = 0;
+		}
+		
+		if(this.cptBrulure != 0) {
+			this.cptBrulure = 0;
+		}
+
+	}
+	
+	/*
+	 * Objectif : Menu permettand de choisir quels attributs restaurer
+	 * Parametre : 
+	 * 
+	 */
+	public void seReposer() {
+		System.out.println("Vous comptez vous reposer!");
+		System.out.println("1 - Se reposer totalement (retablir tous ses attributs aux maximums)");
+		System.out.println("2 - Se reposer partiellement (uniquement la vie)");
+		int choix = saisieInt("");
+		switch(choix) {
+		case 1:	reposTotal();
+			break;
+		case 2 : 
+			if(this.vie != this.vieMax) {
+				this.vie=this.vieMax;
+			}else {
+				System.out.println("Votre vie est déjà aux maximum.");
+			}
+			break;
+		}
 	}
 	
 	
