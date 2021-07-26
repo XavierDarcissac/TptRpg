@@ -1,5 +1,7 @@
 package rpg.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.Column;
@@ -8,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @DiscriminatorValue("user")
@@ -374,6 +378,89 @@ public class Utilisateur extends Compte {
 			break;
 		}
 	}
+	
+	public void utiliserPotion(){
+		List<InventairePotion> potionInInventaire = new ArrayList<InventairePotion>();
+		potionInInventaire = this.inventaire.getInventairePotion();
+
+		List<Potion> soin = new ArrayList<Potion>();
+		
+		int index;
+		double dif=0;
+		
+		System.out.println("Vous voulez utiliser quel type de potion");
+		System.out.println("1 - Soigner");
+		System.out.println("2 - AttaquePlus");
+		System.out.println("3 - VitessePlus");
+		System.out.println("4 - DefensePlus");
+		System.out.println("5 - AgilitePlus");
+		System.out.println("6 - PoisonMoins");
+		System.out.println("7 - BrulureMoins");
+		System.out.println("8 - SaignerMoins");
+		System.out.println("9 - EtourdissementMoins");
+		
+		int choix = saisieInt("");
+		switch(choix) {
+		case 1:
+			
+			for(InventairePotion invP :potionInInventaire) {
+				if(invP.getPotion().getType().equals("Soigner")) {
+					soin.add(invP.getPotion());
+				}	
+				if(soin.size()==0) {
+					System.out.println("Vous n'avez pas de potion disponible");
+				}else{
+					index =0;
+					for(Potion p : soin) {
+						index = index+1;
+						System.out.println("La potion "+index + " est " + p.toString());
+					}
+					choix=saisieInt("Vous voulez utiliser quel potion de cette liste ?");
+					if(this.vie != this.vieMax) {
+						this.vie = this.vie + soin.get(choix).getValeur();
+						//remove de l'inventaire potion la potion choisie
+						dif = this.vieMax-this.vie;
+						if(dif>0) {
+							this.vie=this.vieMax;
+						}
+					}
+				}
+			}
+			
+			break;
+		case 2 : 
+			System.out.println(""); 
+			break;
+		case 3:
+			System.out.println("");	;
+			break;
+		case 4 : 
+			System.out.println(""); 
+			break;
+		case 5:
+			System.out.println("");	;
+			break;
+		case 6 : 
+			System.out.println(""); 
+			break;
+		case 7:
+			System.out.println("");	;
+			break;
+		case 8 : 
+			System.out.println(""); 
+			break;
+		case 9 : 
+			System.out.println(""); 
+			break;
+		}
+		
+		
+
+		
+	}
+	
+
+	
 	
 	
 

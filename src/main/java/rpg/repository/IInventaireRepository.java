@@ -6,4 +6,5 @@ import rpg.model.Inventaire;
 
 public interface IInventaireRepository extends JpaRepository<Inventaire, Long>{
 
+
 }
