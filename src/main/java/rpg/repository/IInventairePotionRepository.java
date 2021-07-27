@@ -6,9 +6,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import rpg.model.Inventaire;
 import rpg.model.InventairePotion;
 import rpg.model.Potion;
-import rpg.model.Utilisateur;
+import rpg.model.TypePotion;
 
 public interface IInventairePotionRepository  extends JpaRepository<InventairePotion, Long>{
+	@Query("select ip.potion from InventairePotion ip  where ip.inventaire.id = :id")
+	List<Potion> findAllPotionByInventaireId(@Param("id") Long id); // @Query
+	
+	@Query("select ip.potion from InventairePotion ip  where ip.potion.type = :type")
+	List<Potion> findAllPotionByType( @Param("type") TypePotion type); // @Query
+	
+	@Query("select ip.potion from InventairePotion ip  where ip.potion.type = :type and ip.inventaire.id = :id")
+	List<Potion> findAllPotionByTypeAndInventaireId( @Param("type") TypePotion type,@Param("id") Long id); // @Query
 }

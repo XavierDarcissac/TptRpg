@@ -91,6 +91,8 @@ public class Utilisateur extends Compte {
 		super(pseudo, mail, mdp);
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	public Utilisateur(Long id, int version, String pseudo, String mail, String mdp, Hero hero, Inventaire inventaire, Arme arme, Armure armure, Histoire histoire, double vie,
 			double attaque, double defense, double agilite, double vitesse, double vieMax, double attaqueMax,
 			double defenseMax, double agiliteMax, double vitesseMax, int cptEmpoisonnement, int cptEtourdissement,
@@ -379,78 +381,62 @@ public class Utilisateur extends Compte {
 		}
 	}
 	
-	public void utiliserPotion(){
-		List<InventairePotion> potionInInventaire = new ArrayList<InventairePotion>();
-		potionInInventaire = this.inventaire.getInventairePotion();
-
-		List<Potion> soin = new ArrayList<Potion>();
-		
-		int index;
-		double dif=0;
-		
-		System.out.println("Vous voulez utiliser quel type de potion");
-		System.out.println("1 - Soigner");
-		System.out.println("2 - AttaquePlus");
-		System.out.println("3 - VitessePlus");
-		System.out.println("4 - DefensePlus");
-		System.out.println("5 - AgilitePlus");
-		System.out.println("6 - PoisonMoins");
-		System.out.println("7 - BrulureMoins");
-		System.out.println("8 - SaignerMoins");
-		System.out.println("9 - EtourdissementMoins");
-		
-		int choix = saisieInt("");
-		switch(choix) {
-		case 1:
-			
-			for(InventairePotion invP :potionInInventaire) {
-				if(invP.getPotion().getType().equals("Soigner")) {
-					soin.add(invP.getPotion());
-				}	
-				if(soin.size()==0) {
-					System.out.println("Vous n'avez pas de potion disponible");
-				}else{
-					index =0;
-					for(Potion p : soin) {
-						index = index+1;
-						System.out.println("La potion "+index + " est " + p.toString());
-					}
-					choix=saisieInt("Vous voulez utiliser quel potion de cette liste ?");
-					if(this.vie != this.vieMax) {
-						this.vie = this.vie + soin.get(choix).getValeur();
-						//remove de l'inventaire potion la potion choisie
-						dif = this.vieMax-this.vie;
-						if(dif>0) {
-							this.vie=this.vieMax;
-						}
-					}
-				}
+	public void utiliserPotion(Potion p){
+		switch(p.getType().toString()) {
+		case "Soigner":
+			this.vie = this.vie+p.getValeur();
+			if(this.vie>this.vieMax) {
+				this.vie=this.vieMax;
 			}
+			break;
+		case "AttaquePlus" : 
+			this.attaque = this.attaque+p.getValeur();
+			if(this.attaque>this.attaqueMax) {
+				this.attaque=this.attaqueMax;
+			}
+			break;
+		case "VitessePlus":
+			this.vitesse = this.vitesse+p.getValeur();
+			if(this.vitesse>this.vitesseMax) {
+				this.vitesse=this.vitesseMax;
+			}
+			break;
+		case "DefensePlus" : 
+			this.defense = this.defense+p.getValeur();
+			if(this.defense>this.defenseMax) {
+				this.defense=this.defenseMax;
+			}
+			break;
+		case "AgilitePlus":
+			this.agilite = this.agilite+p.getValeur();
+			if(this.agilite>this.agiliteMax) {
+				this.agilite=this.agiliteMax;
+			}
+			break;
 			
+		case "PoisonMoins" : 
+			this.cptEmpoisonnement = (int) (this.cptEmpoisonnement-p.getValeur());
+			if(this.cptEmpoisonnement<0) {
+				this.cptEmpoisonnement=0;
+			} 
 			break;
-		case 2 : 
-			System.out.println(""); 
+		case "SaignerMoins":
+			this.cptSaignement = (int) (this.cptSaignement-p.getValeur());
+			if(this.cptSaignement<0) {
+				this.cptSaignement=0;
+			} 
 			break;
-		case 3:
-			System.out.println("");	;
+		case "BrulureMoins" : 
+			this.cptBrulure = (int) (this.cptBrulure-p.getValeur());
+			if(this.cptBrulure<0) {
+				this.cptBrulure=0;
+			} 
 			break;
-		case 4 : 
-			System.out.println(""); 
-			break;
-		case 5:
-			System.out.println("");	;
-			break;
-		case 6 : 
-			System.out.println(""); 
-			break;
-		case 7:
-			System.out.println("");	;
-			break;
-		case 8 : 
-			System.out.println(""); 
-			break;
-		case 9 : 
-			System.out.println(""); 
+		case "EtourdissementMoins" : 
+			this.cptEtourdissement = (int) (this.cptEtourdissement-p.getValeur());
+			if(this.cptEtourdissement<0) {
+				this.cptEtourdissement=0;
+			} 
 			break;
 		}
 		
