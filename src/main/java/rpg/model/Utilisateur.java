@@ -467,4 +467,9 @@ public class Utilisateur extends Compte {
 		return attaque;	
 	}
 	
+	public double defendre() {
+		double def =0;
+		return def;
+	}
+	
 }
