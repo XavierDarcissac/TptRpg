@@ -89,6 +89,22 @@ public class Hero extends Personnage{
 	
 	}
 
+	public Hero(TypePersonnage typePersonnage, double coefAttaque, double coefDefense, double coefVie,
+			double coefPrecision, double coefVitesse, double attaque, double defense, double vie, double agilite,
+			double vitesse) {
+		this.typePersonnage = typePersonnage;
+		this.coefAttaque = coefAttaque;
+		this.coefDefense = coefDefense;
+		this.coefVie = coefVie;
+		this.coefPrecision = coefPrecision;
+		this.coefVitesse = coefVitesse;
+		this.attaque = attaque;
+		this.defense = defense;
+		this.vie = vie;
+		this.agilite = agilite;
+		this.vitesse = vitesse;
+	
+	}
 
 
 

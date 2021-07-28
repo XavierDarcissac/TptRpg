@@ -1,7 +1,6 @@
 package rpg.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.persistence.Column;
@@ -10,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @DiscriminatorValue("user")
@@ -439,15 +436,35 @@ public class Utilisateur extends Compte {
 			} 
 			break;
 		}
-		
-		
-
-		
 	}
 	
-
 	
+	public double attaquer() {
+		System.out.println("C'est le moment de calculer votre force d'attaque pour attaquer");
+		Random rand = new Random();
+		double attaque;
+		double coef;
+		double scale = Math.pow(10, 0);
+		
+		int jetDe = rand.nextInt(6); // jet de dé entre 0 et 6-1
+		if(jetDe <2) {
+			attaque = (this.attaque)+ this.getArme().getAttaque();
+	        attaque = Math.round(attaque*scale)/scale;
+		}else if(jetDe>=4) {
+			coef = this.getHero().getCoefPrecision()*this.getPrecision();
+			if(coef>(this.getHero().getCoefAttaque()*this.attaque)) {
+				coef = (this.getHero().getCoefAttaque()*this.attaque) / coef;
+			}else {
+				coef = coef/(this.getHero().getCoefAttaque()*this.attaque);
+			}
+			attaque = ((this.getHero().getCoefAttaque()*this.attaque)+ this.getArme().getAttaque() )*(1+coef);
+	        attaque = Math.round(attaque*scale)/scale;
+	       
+		}else {			
+			attaque = (this.getHero().getCoefAttaque()*this.attaque)+ this.getArme().getAttaque();
+	        attaque = Math.round(attaque*scale)/scale;		
+	}
+		return attaque;	
+	}
 	
-	
-
 }

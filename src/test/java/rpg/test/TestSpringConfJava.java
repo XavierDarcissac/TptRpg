@@ -1,18 +1,18 @@
 package rpg.test;
 
-import java.util.List;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import rpg.configuration.ApplicationConfig;
-import rpg.model.Inventaire;
-import rpg.model.InventairePotion;
-import rpg.model.Potion;
-import rpg.model.TypePotion;
+import rpg.model.Arme;
+import rpg.model.Hero;
+import rpg.model.Monstre;
+import rpg.model.TypeMonstre;
+import rpg.model.TypePersonnage;
 import rpg.model.Utilisateur;
 import rpg.repository.IArmeRepository;
 import rpg.repository.IInventairePotionRepository;
 import rpg.repository.IInventaireRepository;
+import rpg.repository.IPersonnageRepository;
 import rpg.repository.IPotionRepository;
 import rpg.repository.IUtilisateurRepository;
 
@@ -28,6 +28,7 @@ public class TestSpringConfJava {
 		IPotionRepository potionRepo = context.getBean(IPotionRepository.class);
 		IInventairePotionRepository ipRepo = context.getBean(IInventairePotionRepository.class);
 		IInventaireRepository iRepo = context.getBean(IInventaireRepository.class);
+		IPersonnageRepository personneRepository = context.getBean(IPersonnageRepository.class);
 		
 		//
 //				Matiere html = new Matiere("HTML", 2);
@@ -67,26 +68,47 @@ public class TestSpringConfJava {
 //		iF = iRepo.findById(i.getId()).get();
 //		ipF.setInventaire(iF);
 //		//ipRepo.save(ipF);
-		
+//		Arme a = new Arme("epee toto",TypeArme.lance,"",10,5,0,0);
+//		armeRepo.save(a);
+//		Arme aF = armeRepo.findById(a.getId()).get();
+//		
 		Utilisateur uTest = utilRepo.findByPseudo("toto");
 		System.out.println(uTest.getId());
-		Inventaire iTest = iRepo.findById(uTest.getInventaire().getId()).get();
-		System.out.println(iTest.getId());
+		Arme a = uTest.getArme();
+		System.out.println(a.getAttaque());
 		
-//		List<Potion> lP = ipRepo.findAllPotionByInventaireId(iTest.getId());
-//		for(Potion p : lP) {
+		Monstre m = new Monstre(TypeMonstre.Dragon,10,10,10000,1,1,45,0,null,null);
+		//personneRepository.save(m);
+		Hero h = new Hero(TypePersonnage.guerrier, 1, 1, 1, 1, 1, 10, 8, 100, 2, 5);
+		//personneRepository.save(h);
+		//Hero hF = (Hero) personneRepository.findById(h.getId()).get();
+		//uTest.setHero(hF);
+		//utilRepo.save(uTest);
+		double att = uTest.attaquer();
+		System.out.println(att);
+		
+		
+		
+		//uTest.attaquer(m);
+		//System.out.println(m.getVie());
+		
+//		Inventaire iTest = iRepo.findById(uTest.getInventaire().getId()).get();
+//		System.out.println(iTest.getId());
+//		
+////		List<Potion> lP = ipRepo.findAllPotionByInventaireId(iTest.getId());
+////		for(Potion p : lP) {
+////			System.out.println(p.getNom());
+////		}
+//		
+//		List<Potion> lPS = ipRepo.findAllPotionByType(TypePotion.Soigner);
+//		for(Potion p : lPS) {
 //			System.out.println(p.getNom());
 //		}
-		
-		List<Potion> lPS = ipRepo.findAllPotionByType(TypePotion.Soigner);
-		for(Potion p : lPS) {
-			System.out.println(p.getNom());
-		}
-		
-		lPS = ipRepo.findAllPotionByTypeAndInventaireId(TypePotion.Soigner,iTest.getId());
-		for(Potion p : lPS) {
-			System.out.println(p.getNom());
-		}
+//		
+//		lPS = ipRepo.findAllPotionByTypeAndInventaireId(TypePotion.Soigner,iTest.getId());
+//		for(Potion p : lPS) {
+//			System.out.println(p.getNom());
+//		}
 		
 		
 		
