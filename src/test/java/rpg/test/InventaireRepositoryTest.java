@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import rpg.config.ApplicationConfig;
+import rpg.configuration.ApplicationConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfig.class)
@@ -16,7 +16,6 @@ public class InventaireRepositoryTest {
 //		private IInventaireRepository inventaireRepo;
 //
 
-		
 		
 		
 	}

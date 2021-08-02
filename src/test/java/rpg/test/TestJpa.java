@@ -2,7 +2,7 @@ package rpg.test;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import rpg.config.ApplicationConfig;
+import rpg.configuration.ApplicationConfig;
 
 public class TestJpa {
 
