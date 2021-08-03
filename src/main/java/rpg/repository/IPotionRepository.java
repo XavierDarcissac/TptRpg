@@ -19,5 +19,8 @@ public interface IPotionRepository  extends JpaRepository<Potion, Long>{
 	@Query("SELECT p FROM Potion p ORDER BY p.PrixVente DESC")
 	Potion orderBySellingPriceDesc();
 	
+	@Query("SELECT p FROM Potion p ORDER BY p.TypePotion")
+	Potion findAllByTypePotion();
+	
 	
 }

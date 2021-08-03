@@ -20,4 +20,6 @@ public interface IArmureRepository extends JpaRepository<Armure, Long> {
 	@Query("SELECT a FROM Armure a ORDER BY p.PrixVente DESC")
 	Armure orderBySellingPriceDesc();
 	
+	@Query("SELECT a FROM Armure p ORDER BY p.TypeArmure")
+	Armure findAllByTypeArmure();
 }

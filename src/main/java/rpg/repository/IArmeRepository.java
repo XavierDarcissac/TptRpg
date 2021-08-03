@@ -20,4 +20,6 @@ public interface IArmeRepository extends JpaRepository<Arme, Long> {
 	@Query("SELECT a FROM Arme a ORDER BY p.PrixVente DESC")
 	Arme orderBySellingPriceDesc();
 	
+	@Query("SELECT a FROM Arme p ORDER BY p.TypeArme")
+	Arme findAllByTypeArme();
 }

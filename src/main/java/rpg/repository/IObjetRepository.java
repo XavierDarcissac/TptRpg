@@ -20,5 +20,9 @@ public interface IObjetRepository extends JpaRepository<Objet, Long>{
 	@Query("SELECT o FROM Objet o ORDER BY p.PrixVente DESC")
 	Objet orderBySellingPriceDesc();
 	
+	@Query("SELECT o.qte FROM Objet o WHERE o.nom = 'Gold'")
+	Objet findGold();
+	
+
 	
 }
