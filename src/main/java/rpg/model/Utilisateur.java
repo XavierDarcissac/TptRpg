@@ -439,17 +439,18 @@ public class Utilisateur extends Compte {
 	}
 	
 	
-	public double attaquer() {
+	public void attaquer(Monstre m) {
 		System.out.println("C'est le moment de calculer votre force d'attaque pour attaquer");
 		Random rand = new Random();
-		double attaque;
+		double att;
 		double coef;
 		double scale = Math.pow(10, 0);
+		double vieMonstre = m.getVie();
 		
 		int jetDe = rand.nextInt(6); // jet de dé entre 0 et 6-1
 		if(jetDe <2) {
-			attaque = (this.attaque)+ this.getArme().getAttaque();
-	        attaque = Math.round(attaque*scale)/scale;
+			att = (this.attaque)+ this.getArme().getAttaque();
+	        att = Math.round(att*scale)/scale;
 		}else if(jetDe>=4) {
 			coef = this.getHero().getCoefPrecision()*this.getPrecision();
 			if(coef>(this.getHero().getCoefAttaque()*this.attaque)) {
@@ -457,18 +458,42 @@ public class Utilisateur extends Compte {
 			}else {
 				coef = coef/(this.getHero().getCoefAttaque()*this.attaque);
 			}
-			attaque = ((this.getHero().getCoefAttaque()*this.attaque)+ this.getArme().getAttaque() )*(1+coef);
-	        attaque = Math.round(attaque*scale)/scale;
+			att = ((this.getHero().getCoefAttaque()*this.attaque)+ this.getArme().getAttaque() )*(1+coef);
+	        att = Math.round(att*scale)/scale;
 	       
 		}else {			
-			attaque = (this.getHero().getCoefAttaque()*this.attaque)+ this.getArme().getAttaque();
-	        attaque = Math.round(attaque*scale)/scale;		
+			att = (this.getHero().getCoefAttaque()*this.attaque)+ this.getArme().getAttaque();
+	        att = Math.round(att*scale)/scale;		
 	}
-		return attaque;	
+		vieMonstre = vieMonstre + m.defendre()-att;
+		m.setVie(vieMonstre);
 	}
 	
 	public double defendre() {
-		double def =0;
+		double def=0;
+		Random rand = new Random();
+		double scale = Math.pow(10, 0);
+		double coef;
+		int jetDe = rand.nextInt(6); // jet de dé entre 0 et 6-1
+		if(jetDe<2) {
+			def = this.defense+this.getArmure().getDefense();
+			def = Math.round(def*scale)/scale;
+		}else if(jetDe>=4) {
+			coef = this.getHero().getCoefVitesse()*this.getVitesse();
+			if(coef>(this.getHero().getCoefDefense()*this.defense)) {
+				coef = (this.getHero().getCoefDefense()*this.defense) / coef;
+			}else {
+				coef = coef/(this.getHero().getCoefDefense()*this.defense);
+			}
+			def = ((this.getHero().getCoefDefense()*this.defense)+ this.getArmure().getDefense() )*(1+coef);
+			def = Math.round(def*scale)/scale;
+
+		}else {
+			coef = this.vitesse/this.getArmure().getVitesse();
+			coef = Math.round(coef*scale)/scale; // si coef <1 ==> armure trop lourde et vitesse reduite
+			def = ((this.getHero().getCoefDefense()*this.defense)+this.getArmure().getDefense()) * coef;
+			def = Math.round(def*scale)/scale;
+		}
 		return def;
 	}
 	
