@@ -9,9 +9,20 @@ import rpg.model.Utilisateur;
 
 
 public interface IUtilisateurRepository extends JpaRepository<Utilisateur, Long> {
+	
+	///////////////////////////////////////////////////
+	/////////////////// Find //////////////////////////
+	//////////////////////////////////////////////////
 	@Query("select u from Utilisateur u where u.pseudo = :pseudo")
 	Utilisateur findByPseudo(@Param("pseudo") String pseudo); // @Query
 	
+	@Query("select u from Utilisateur u where u.mail = :mail")
+	Utilisateur findUserByMail(@Param("mail") String mail); // @Query
+	
+	
+	///////////////////////////////////////////////////
+	/////////////////// Delete ////////////////////////
+	//////////////////////////////////////////////////
 	@Modifying
 	@Query("delete Utilisateur u where u.mail = :mail")
 	void deleteUserByMail(@Param("mail") String mail);
@@ -19,6 +30,10 @@ public interface IUtilisateurRepository extends JpaRepository<Utilisateur, Long>
 	@Modifying
 	@Query("delete Utilisateur u where u.pseudo = :pseudo")
 	void deleteUserByPseudo(@Param("pseudo") String pseudo);
+	
+	///////////////////////////////////////////////////
+	/////////////////// Update ////////////////////////
+	//////////////////////////////////////////////////
 	
 	@Modifying
 	@Query("update Utilisateur u set u.pseudo = ?1 where u.pseudo = ?2")	
