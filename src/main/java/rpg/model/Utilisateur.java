@@ -497,4 +497,16 @@ public class Utilisateur extends Compte {
 		return def;
 	}
 	
+	public void fuir() {
+		System.out.println("Vous voulez fuir");
+		System.out.println("1 - Oui");
+		System.out.println("2 - Non");
+		int choix = saisieInt("");
+		if(choix==1) {
+			System.out.println("Vous allez perdre votre arme et armure portées lors du combat");
+			this.setArmure(null);
+			this.setArme(null);
+		}
+	}
+	
 }
