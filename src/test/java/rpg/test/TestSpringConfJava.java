@@ -36,10 +36,7 @@ public class TestSpringConfJava {
 			ip.setQte(ip.getQte()+1);
 			inventairePotionpRepo.save(ip);
 		}
-		
-
 		context.close();
-		
 	}
 	
 	public static void fouiller(Utilisateur u) {
@@ -48,8 +45,7 @@ public class TestSpringConfJava {
 		IInventaireRepository inventaireRepo = context.getBean(IInventaireRepository.class);
 		IObjetRepository objetRepo = context.getBean(IObjetRepository.class);
 		IPotionRepository potionRepo = context.getBean(IPotionRepository.class);
-		IInventairePotionRepository inventairePotionpRepo = context.getBean(IInventairePotionRepository.class);
-
+		
 		System.out.println("Vous allez fouiller l'environnement");
 		System.out.println("Vous avez cinq possibilitées : Trouver une Arme/Armure ou Trouver une Potion ou Rien Trouver ou Trouver un objet ou Etre empoisonné");
 		Random rand = new Random();
@@ -62,9 +58,7 @@ public class TestSpringConfJava {
 		case 1 : 
 			
 			System.out.println("Vous recuperer un objet ici de l'or");
-			Objet or = new Objet();
-			or.setNom("or");
-			or.setQte(100);
+			Objet or = new Objet("or",100);
 			Objet orInInventaire = inventaireRepo.findQteObjetForUserPseudo("toto", "or");
 			double qte = or.getQte()+orInInventaire.getQte();
 			orInInventaire.setQte(qte);
@@ -76,17 +70,15 @@ public class TestSpringConfJava {
 			break;
 		case 3 : 
 			System.out.println("Vous recuperer une potion");
-			
 			Potion potionFouille = potionRepo.findPotionByName("Potion de fouille");
 			insertPotionInInventaire(potionFouille,u);
-	
 			break;
+			
 		case 4:
 			System.out.println("Vous etes empoisonné");
 			int nbEmposonnement = 3;
 			u.setCptEmpoisonnement(nbEmposonnement);
 			utilRepo.save(u);
-			
 			break;
 		}
 
