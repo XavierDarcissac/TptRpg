@@ -503,9 +503,10 @@ public class Utilisateur extends Compte {
 		System.out.println("2 - Non");
 		int choix = saisieInt("");
 		if(choix==1) {
-			System.out.println("Vous allez perdre votre arme et armure portées lors du combat");
+			System.out.println("Vous allez perdre votre arme et armure portées lors du combat et de l'or");
 			this.setArmure(null);
 			this.setArme(null);
+			//Lors de l'appel de la methode, utiliser le repository inventaire et la fonction findQteObjetForUserPseudo afin d'enlever l'or
 		}
 	}
 	

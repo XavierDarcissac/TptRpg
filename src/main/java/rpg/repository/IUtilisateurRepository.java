@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import rpg.model.Inventaire;
 import rpg.model.Utilisateur;
 
 
@@ -18,6 +19,9 @@ public interface IUtilisateurRepository extends JpaRepository<Utilisateur, Long>
 	
 	@Query("select u from Utilisateur u where u.mail = :mail")
 	Utilisateur findUserByMail(@Param("mail") String mail); // @Query
+	
+	@Query("select u.inventaire from Utilisateur u where u.pseudo = :pseudo")
+	Inventaire findInventaireByPseudoUser(@Param("pseudo") String pseudo);
 	
 	
 	///////////////////////////////////////////////////

@@ -1,17 +1,19 @@
 package rpg.test;
 
+import java.util.Random;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import rpg.configuration.ApplicationConfig;
-import rpg.model.Arme;
-import rpg.model.Hero;
-import rpg.model.Monstre;
-import rpg.model.TypeMonstre;
-import rpg.model.TypePersonnage;
+import rpg.model.Inventaire;
+import rpg.model.InventairePotion;
+import rpg.model.Objet;
+import rpg.model.Potion;
 import rpg.model.Utilisateur;
 import rpg.repository.IArmeRepository;
 import rpg.repository.IInventairePotionRepository;
 import rpg.repository.IInventaireRepository;
+import rpg.repository.IObjetRepository;
 import rpg.repository.IPersonnageRepository;
 import rpg.repository.IPotionRepository;
 import rpg.repository.IUtilisateurRepository;
@@ -19,6 +21,82 @@ import rpg.repository.IUtilisateurRepository;
 
 
 public class TestSpringConfJava {
+	
+	public static void insertPotionInInventaire(Potion p, Utilisateur u) {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		IInventairePotionRepository inventairePotionpRepo = context.getBean(IInventairePotionRepository.class);
+		
+		Potion pInInventaire = inventairePotionpRepo.findPotionNameInInveantaire(p.getNom(), u.getInventaire().getId());
+
+		if(pInInventaire==null) {
+			InventairePotion ip = new InventairePotion(1,u.getInventaire(),p);
+			inventairePotionpRepo.save(ip);
+		}else {
+			InventairePotion ip = inventairePotionpRepo.findInventairePotionByIdPotionAndIdInv(pInInventaire.getId(),u.getInventaire().getId());
+			ip.setQte(ip.getQte()+1);
+			inventairePotionpRepo.save(ip);
+		}
+		
+
+		context.close();
+		
+	}
+	
+	public static void fouiller(Utilisateur u) {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		IUtilisateurRepository utilRepo = context.getBean(IUtilisateurRepository.class);
+		IInventaireRepository inventaireRepo = context.getBean(IInventaireRepository.class);
+		IObjetRepository objetRepo = context.getBean(IObjetRepository.class);
+		IPotionRepository potionRepo = context.getBean(IPotionRepository.class);
+		IInventairePotionRepository inventairePotionpRepo = context.getBean(IInventairePotionRepository.class);
+
+		System.out.println("Vous allez fouiller l'environnement");
+		System.out.println("Vous avez cinq possibilitées : Trouver une Arme/Armure ou Trouver une Potion ou Rien Trouver ou Trouver un objet ou Etre empoisonné");
+		Random rand = new Random();
+		int jetDe = rand.nextInt(5); // jet de dé entre 0 et 6-1
+		jetDe=3;
+		switch(jetDe) {
+		case 0:
+			System.out.println("Vous avez rien eu ! Dommage");
+			break;
+		case 1 : 
+			
+			System.out.println("Vous recuperer un objet ici de l'or");
+			Objet or = new Objet();
+			or.setNom("or");
+			or.setQte(100);
+			Objet orInInventaire = inventaireRepo.findQteObjetForUserPseudo("toto", "or");
+			double qte = or.getQte()+orInInventaire.getQte();
+			orInInventaire.setQte(qte);
+			objetRepo.save(orInInventaire);
+
+			break;
+		case 2:
+			System.out.println("Vous recuperer une arme ou une armure");
+			break;
+		case 3 : 
+			System.out.println("Vous recuperer une potion");
+			
+			Potion potionFouille = potionRepo.findPotionByName("Potion de fouille");
+			insertPotionInInventaire(potionFouille,u);
+	
+			break;
+		case 4:
+			System.out.println("Vous etes empoisonné");
+			int nbEmposonnement = 3;
+			u.setCptEmpoisonnement(nbEmposonnement);
+			utilRepo.save(u);
+			
+			break;
+		}
+
+		
+
+		
+		context.close();
+
+	}
+
 
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
@@ -29,7 +107,7 @@ public class TestSpringConfJava {
 		IInventairePotionRepository ipRepo = context.getBean(IInventairePotionRepository.class);
 		IInventaireRepository iRepo = context.getBean(IInventaireRepository.class);
 		IPersonnageRepository personneRepository = context.getBean(IPersonnageRepository.class);
-		
+		IObjetRepository objetRepo = context.getBean(IObjetRepository.class);
 		//
 //				Matiere html = new Matiere("HTML", 2);
 		//
@@ -73,19 +151,28 @@ public class TestSpringConfJava {
 //		Arme aF = armeRepo.findById(a.getId()).get();
 //		
 		Utilisateur uTest = utilRepo.findByPseudo("toto");
-		System.out.println(uTest.getId());
-		Arme a = uTest.getArme();
-		System.out.println(a.getAttaque());
+		fouiller(uTest);
 		
-		Monstre m = new Monstre(TypeMonstre.Dragon,10,10,10000,1,1,45,0,null,null);
+//		System.out.println(uTest.getId());
+//		Arme a = uTest.getArme();
+//		System.out.println(a.getAttaque());
+//		System.out.println(uTest.getId());
+//
+//		Objet qte = iRepo.findQteObjetForUserPseudo("toto", "or");
+//		System.out.println(qte.getNom());
+//		System.out.println(qte.getId());
+//		System.out.println(qte.getDescription());
+//		System.out.println(qte.getQte());
+
+		
+		
+		//Monstre m = new Monstre(TypeMonstre.Dragon,10,10,10000,1,1,45,0,null,null);
 		//personneRepository.save(m);
-		Hero h = new Hero(TypePersonnage.guerrier, 1, 1, 1, 1, 1, 10, 8, 100, 2, 5);
+		//Hero h = new Hero(TypePersonnage.guerrier, 1, 1, 1, 1, 1, 10, 8, 100, 2, 5);
 		//personneRepository.save(h);
 		//Hero hF = (Hero) personneRepository.findById(h.getId()).get();
 		//uTest.setHero(hF);
 		//utilRepo.save(uTest);
-		double att = uTest.attaquer();
-		System.out.println(att);
 		
 		
 		
@@ -110,10 +197,6 @@ public class TestSpringConfJava {
 //			System.out.println(p.getNom());
 //		}
 		
-		
-		
-		
-				
 	
 		context.close();
 	}
