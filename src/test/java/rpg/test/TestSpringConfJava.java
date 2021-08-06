@@ -463,12 +463,15 @@ public class TestSpringConfJava {
 //		armeRepo.save(a);
 //		Arme aF = armeRepo.findById(a.getId()).get();
 //		
-		Utilisateur uTest = utilRepo.findByPseudo("toto");
+		Utilisateur uTest = utilRepo.findByPseudo("Toto le boss");
 		Monstre mTest = (Monstre) monstreRepo.findById((long) 1).get();
-		System.out.println(mTest.getNom());
 		//fouiller(uTest);
 		//combat(uTest,mTest);
-		changerEquipement(uTest);
+		//changerEquipement(uTest);
+		uTest.setMail("totoLeBoss@boss.com");
+		uTest.setMdp("MotDePasse");
+		uTest.setPseudo("Toto le boss");
+		//utilRepo.save(uTest);
 		
 //		System.out.println(uTest.getId());
 //		Arme a = uTest.getArme();
