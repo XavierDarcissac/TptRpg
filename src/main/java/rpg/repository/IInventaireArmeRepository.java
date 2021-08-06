@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 import rpg.model.Arme;
 import rpg.model.InventaireArme;
-import rpg.model.Potion;
 import rpg.model.TypeArme;
 
 public interface IInventaireArmeRepository  extends JpaRepository<InventaireArme, Long>{

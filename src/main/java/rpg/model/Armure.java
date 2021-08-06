@@ -180,8 +180,7 @@ public class Armure {
 	public String toString() {
 		return "Armure [id=" + id + ", version=" + version + ", nom=" + nom + ", typearmure=" + typearmure
 				+ ", description=" + description + ", defense=" + defense + ", vitesse=" + vitesse + ", prixVente="
-				+ prixVente + ", prixAchat=" + prixAchat + ", marchandArmures=" + marchandArmures
-				+ ", inventaireArmures=" + inventaireArmures + "]";
+				+ prixVente + ", prixAchat=" + prixAchat + "]";
 	}
 
 	

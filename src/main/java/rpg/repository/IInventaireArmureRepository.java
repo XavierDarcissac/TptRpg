@@ -14,7 +14,7 @@ import rpg.model.TypeArmure;
 
 public interface IInventaireArmureRepository  extends JpaRepository<InventaireArmure, Long>{
 	@Query("select ip.armure from InventaireArmure ip  where ip.inventaire.id = :id")
-	List<Armure> findAllArmeByInventaireId(@Param("id") Long id); // @Query
+	List<Armure> findAllArmureByInventaireId(@Param("id") Long id); // @Query
 	
 	@Query("select ip.armure from InventaireArmure ip  where ip.armure.typearmure = :type")
 	List<Armure> findAllArmureByType( @Param("type") TypeArmure type); // @Query

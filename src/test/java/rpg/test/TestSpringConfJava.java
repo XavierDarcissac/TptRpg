@@ -1,5 +1,6 @@
 package rpg.test;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -201,8 +202,11 @@ public class TestSpringConfJava {
 		
 		context.close();
 	}
+	
+
+	
 	public static void combatMonstreVSUser(Utilisateur user,Monstre m) {
-AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		
 		IUtilisateurRepository utilRepo = context.getBean(IUtilisateurRepository.class);
 		IInventaireRepository inventaireRepo = context.getBean(IInventaireRepository.class);
@@ -227,11 +231,11 @@ AnnotationConfigApplicationContext context = new AnnotationConfigApplicationCont
 				user.attaquer(m);
 				System.out.println("La vie du monstre aprés l'attaque est  de "+m.getVie());
 
+				
 				if(user.getVie()<=0 || m.getVie()<=0) {
 					utilRepo.save(user);
 					stop=false;
 				}
-				
 				break;
 			case 2:
 				System.out.println("C'est l'heure de la potion");
@@ -257,6 +261,7 @@ AnnotationConfigApplicationContext context = new AnnotationConfigApplicationCont
 		context.close();
 		
 	}
+	
 	public static void combat(Utilisateur user,Monstre m) {
 		System.out.println("C'est l'heure du combat");
 		System.out.println("Grâce à un lancer de pièces on determinera si c'est vous ou votre enemie qui attaque en premier");
@@ -274,11 +279,139 @@ AnnotationConfigApplicationContext context = new AnnotationConfigApplicationCont
 			System.out.println("Le monstre commence");
 			combatMonstreVSUser(user,m);
 			break;
+		}	
+	}
+	
+	public static void changerEquipement(Utilisateur user) {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		
+		IInventaireArmeRepository inventaireArmeRepository = context.getBean(IInventaireArmeRepository.class);
+		IInventaireArmureRepository inventaireArmureRepository = context.getBean(IInventaireArmureRepository.class);
+
+		IUtilisateurRepository utilRepo = context.getBean(IUtilisateurRepository.class);
+
+		System.out.println("Que voulez vous changer ?");
+		System.out.println("1 - Arme");
+		System.out.println("2 - Armure");
+		System.out.println("3 - Arme et Armure");
+		Armure armureActive = user.getArmure();
+		Arme armeActive = user.getArme();
+		List<Arme> listeArme = inventaireArmeRepository.findAllArmeByInventaireId(user.getInventaire().getId());
+		List<Armure> listeArmure = inventaireArmureRepository.findAllArmureByInventaireId(user.getInventaire().getId());
+
+		int choix = saisieInt("");
+		switch (choix) {
+		case 1:
+			if(armeActive==null) {
+				System.out.println("Vous n'avez pas d'arme");
+				System.out.println();
+			}else {
+				System.out.println("Votre arme actuelle est : ");
+				System.out.println(armeActive.toString());
+				System.out.println();
+			}
+			
+			if(listeArme.isEmpty()) {
+				System.out.println("Vous n'avez aucune arme en votre possession ! il faut aller voir un marchand");
+				//lien marchand
+			}else {
+				int i=0;
+				for(Arme a : listeArme) {
+					System.out.println("Numéro Arme "+i);
+					System.out.println(a.toString());
+					System.out.println();
+					i=i+1;
+				}
+				int choixEquipement=saisieInt("Quelle Arme voulez vous ? saisir le numéro de l'arme");
+				System.out.println("Votre choix est : " + listeArme.get(choixEquipement));
+				user.setArme(listeArme.get(choixEquipement));
+				utilRepo.save(user);
+			}
+			
+
+			break;
+		case 2:
+			if(armureActive==null) {
+				System.out.println("Vous n'avez pas d'armure");
+				System.out.println();
+			}else {
+				System.out.println("Votre armure actuelle est : ");
+				System.out.println(armureActive.toString());
+				System.out.println();
+			}
+			
+			if(listeArmure.isEmpty()) {
+				System.out.println("Vous n'avez aucune armure en votre possession ! il faut aller voir un marchand");
+				//lien marchand
+			}else {
+				int i=0;
+				for(Armure a : listeArmure) {
+					System.out.println("Numéro Armure "+i);
+					System.out.println(a.toString());
+					System.out.println();
+					i=i+1;
+				}
+				int choixEquipement=saisieInt("Quelle Arme voulez vous ? saisir le numéro de l'arme");
+				System.out.println("Votre choix est : " + listeArmure.get(choixEquipement));
+				user.setArmure(listeArmure.get(choixEquipement));
+				utilRepo.save(user);
+			}
+			break;
+		case 3:
+			if(armeActive==null) {
+				System.out.println("Vous n'avez pas d'arme");
+				System.out.println();
+			}else {
+				System.out.println("Votre arme actuelle est : ");
+				System.out.println(armeActive.toString());
+				System.out.println();
+			}
+			
+			if(listeArme.isEmpty()) {
+				System.out.println("Vous n'avez aucune arme en votre possession ! il faut aller voir un marchand");
+				//lien marchand
+			}else {
+				int i=0;
+				for(Arme a : listeArme) {
+					System.out.println("Numéro Arme "+i);
+					System.out.println(a.toString());
+					System.out.println();
+					i=i+1;
+				}
+				int choixEquipement=saisieInt("Quelle Arme voulez vous ? saisir le numéro de l'arme");
+				System.out.println("Votre choix est : " + listeArme.get(choixEquipement));
+				user.setArme(listeArme.get(choixEquipement));
+			}
+			if(armureActive==null) {
+				System.out.println("Vous n'avez pas d'armure");
+				System.out.println();
+			}else {
+				System.out.println("Votre armure actuelle est : ");
+				System.out.println(armureActive.toString());
+				System.out.println();
+			}
+			
+			if(listeArmure.isEmpty()) {
+				System.out.println("Vous n'avez aucune armure en votre possession ! il faut aller voir un marchand");
+				//lien marchand
+			}else {
+				int i=0;
+				for(Armure a : listeArmure) {
+					System.out.println("Numéro Armure "+i);
+					System.out.println(a.toString());
+					System.out.println();
+					i=i+1;
+				}
+				int choixEquipement=saisieInt("Quelle Arme voulez vous ? saisir le numéro de l'arme");
+				System.out.println("Votre choix est : " + listeArmure.get(choixEquipement));
+				user.setArmure(listeArmure.get(choixEquipement));
+				utilRepo.save(user);
+			}
+			break;
 		}
 		
-
 		
-		
+		context.close();
 	}
 
 
@@ -334,7 +467,8 @@ AnnotationConfigApplicationContext context = new AnnotationConfigApplicationCont
 		Monstre mTest = (Monstre) monstreRepo.findById((long) 1).get();
 		System.out.println(mTest.getNom());
 		//fouiller(uTest);
-		combat(uTest,mTest);
+		//combat(uTest,mTest);
+		changerEquipement(uTest);
 		
 //		System.out.println(uTest.getId());
 //		Arme a = uTest.getArme();
