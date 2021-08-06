@@ -215,14 +215,28 @@ public class Monstre extends Personnage {
 		int jetDe = rand.nextInt(6);
 		if(jetDe<3) {
 			att = this.attaque+this.getArme().getAttaque();
-			vieUtilisateur = vieUtilisateur+u.defendre()-att;
-			u.setVie(vieUtilisateur);
+			double def = u.defendre();
+			vieUtilisateur = vieUtilisateur+def-att;
+			vieUtilisateur = vieUtilisateur-def;
+			if(vieUtilisateur<0) {
+				u.setVie(0);
+			}else {
+				u.setVie(vieUtilisateur);
+			}
 		}else {
 			coef = this.agilite/this.getArme().getAgilite();
 			coef = Math.round(coef*scale)/scale;
 			att = this.attaque+this.getArme().getAttaque()*coef;
-			vieUtilisateur = vieUtilisateur+u.defendre()-att;
-			u.setVie(vieUtilisateur);
+			double def = u.defendre();
+			vieUtilisateur = vieUtilisateur+def-att;
+			vieUtilisateur = vieUtilisateur-def;
+			if(vieUtilisateur<0) {
+				u.setVie(0);
+			}else {
+				u.setVie(vieUtilisateur);
+
+			}
+			
 		}
 	}
 	

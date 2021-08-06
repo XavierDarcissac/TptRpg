@@ -440,7 +440,6 @@ public class Utilisateur extends Compte {
 	
 	
 	public void attaquer(Monstre m) {
-		System.out.println("C'est le moment de calculer votre force d'attaque pour attaquer");
 		Random rand = new Random();
 		double att;
 		double coef;
@@ -464,9 +463,16 @@ public class Utilisateur extends Compte {
 		}else {			
 			att = (this.getHero().getCoefAttaque()*this.attaque)+ this.getArme().getAttaque();
 	        att = Math.round(att*scale)/scale;		
-	}
-		vieMonstre = vieMonstre + m.defendre()-att;
-		m.setVie(vieMonstre);
+		}
+		
+		double def = m.defendre();
+		vieMonstre = vieMonstre+def -att;
+		vieMonstre=vieMonstre-def;
+		if(vieMonstre<0) {
+			m.setVie(0);
+		}else {
+			m.setVie(vieMonstre);
+		}
 	}
 	
 	public double defendre() {

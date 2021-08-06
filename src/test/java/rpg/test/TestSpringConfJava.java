@@ -1,6 +1,7 @@
 package rpg.test;
 
 import java.util.Random;
+import java.util.Scanner;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -10,6 +11,7 @@ import rpg.model.Armure;
 import rpg.model.InventaireArme;
 import rpg.model.InventaireArmure;
 import rpg.model.InventairePotion;
+import rpg.model.Monstre;
 import rpg.model.Objet;
 import rpg.model.Potion;
 import rpg.model.Utilisateur;
@@ -27,6 +29,12 @@ import rpg.repository.IUtilisateurRepository;
 
 
 public class TestSpringConfJava {
+	public static int saisieInt(String msg) 
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println(msg);
+		return sc.nextInt();
+	}
 	
 	public static void insertPotionInInventaire(Potion p, Utilisateur u) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
@@ -102,7 +110,7 @@ public class TestSpringConfJava {
 			
 			System.out.println("Vous recuperer un objet ici de l'or");
 			Objet or = new Objet("or",100);
-			Objet orInInventaire = inventaireRepo.findQteObjetForUserPseudo("toto", "or");
+			Objet orInInventaire = inventaireRepo.findQteObjetForUserPseudo(user.getPseudo(), "or");
 			double qte = or.getQte()+orInInventaire.getQte();
 			orInInventaire.setQte(qte);
 			objetRepo.save(orInInventaire);
@@ -139,18 +147,94 @@ public class TestSpringConfJava {
 		context.close();
 	}
 
+	public static void combatUserVSMonstre(Utilisateur user,Monstre m) {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		
+		IUtilisateurRepository utilRepo = context.getBean(IUtilisateurRepository.class);
+		IInventaireRepository inventaireRepo = context.getBean(IInventaireRepository.class);
+		IObjetRepository objetRepo = context.getBean(IObjetRepository.class);
+		boolean stop = true;
+
+		while(user.getVie()>=0 && m.getVie()>=0 && stop) {
+			System.out.println("Votre choix pour le combat");
+			System.out.println("1 - Attaquer");
+			System.out.println("2 - Utiliser une potion");
+			System.out.println("3 - fuir");
+			int choix = saisieInt("");
+			switch (choix) {
+			case 1:
+				System.out.println("C'est l'heure de l'attaque");
+				System.out.println("Votre vie avant l'attaque est de  "+user.getVie());
+				System.out.println("La vie du monstre est de "+m.getVie());
+				user.attaquer(m);
+				System.out.println("La vie du monstre aprés l'attaque est  de "+m.getVie());
+				m.attaquer(user);
+				System.out.println("Votre vie aprés son attaque est de  "+user.getVie());
+
+
+				if(user.getVie()<=0 || m.getVie()<=0) {
+					utilRepo.save(user);
+					stop=false;
+				}
+				
+				break;
+			case 2:
+				System.out.println("C'est l'heure de la potion");
+				
+				break;
+			case 3:
+				System.out.println("Cours "+user.getPseudo()+" cours !");
+				user.fuir();
+				Objet orInInventaire = inventaireRepo.findQteObjetForUserPseudo(user.getPseudo(), "or");
+				double qteOr = 1000;
+				double qte = orInInventaire.getQte()-qteOr;
+				orInInventaire.setQte(qte);
+				if(orInInventaire.getQte()<0) {
+					orInInventaire.setQte(0);
+				}
+				objetRepo.save(orInInventaire);
+				utilRepo.save(user);
+				stop = false;
+				break;
+			}
+		}
+		
+		context.close();
+	}
+	public static void combatMonstreVSUser(Utilisateur user,Monstre m) {
+		
+	}
+	public static void combat(Utilisateur user,Monstre m) {
+		System.out.println("C'est l'heure du combat");
+		System.out.println("Grâce à un lancer de pièces on determinera si c'est vous ou votre enemie qui attaque en premier");
+		Random rand = new Random();
+		int lancer = rand.nextInt(2);
+		System.out.println(lancer);
+		lancer=0;
+		switch (lancer) {
+		case 0:
+			System.out.println("C'est à vous !");
+			combatUserVSMonstre(user,m);
+			break;
+
+		case 1:
+			System.out.println("Le monstre commence");
+			combatMonstreVSUser(user,m);
+			break;
+		}
+		
+
+		
+		
+	}
 
 
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 
-		IArmeRepository armeRepo = context.getBean(IArmeRepository.class);
 		IUtilisateurRepository utilRepo = context.getBean(IUtilisateurRepository.class);
-		IPotionRepository potionRepo = context.getBean(IPotionRepository.class);
-		IInventairePotionRepository ipRepo = context.getBean(IInventairePotionRepository.class);
-		IInventaireRepository iRepo = context.getBean(IInventaireRepository.class);
-		IPersonnageRepository personneRepository = context.getBean(IPersonnageRepository.class);
-		IObjetRepository objetRepo = context.getBean(IObjetRepository.class);
+		IPersonnageRepository monstreRepo = context.getBean(IPersonnageRepository.class);
+
 		//
 //				Matiere html = new Matiere("HTML", 2);
 		//
@@ -194,7 +278,10 @@ public class TestSpringConfJava {
 //		Arme aF = armeRepo.findById(a.getId()).get();
 //		
 		Utilisateur uTest = utilRepo.findByPseudo("toto");
-		fouiller(uTest);
+		Monstre mTest = (Monstre) monstreRepo.findById((long) 1).get();
+		System.out.println(mTest.getNom());
+		//fouiller(uTest);
+		combat(uTest,mTest);
 		
 //		System.out.println(uTest.getId());
 //		Arme a = uTest.getArme();
