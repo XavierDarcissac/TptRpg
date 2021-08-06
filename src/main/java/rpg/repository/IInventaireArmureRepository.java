@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import rpg.model.Armure;
 import rpg.model.InventaireArmure;
+import rpg.model.InventairePotion;
+import rpg.model.Potion;
 import rpg.model.TypeArmure;
 
 public interface IInventaireArmureRepository  extends JpaRepository<InventaireArmure, Long>{
@@ -20,4 +22,10 @@ public interface IInventaireArmureRepository  extends JpaRepository<InventaireAr
 	@Query("select ip.armure from InventaireArmure ip  where ip.armure.typearmure = :type and ip.inventaire.id = :id")
 	List<Armure> findAllPotionByTypeAndInventaireId( @Param("type") TypeArmure type,@Param("id") Long id); // @Query
 
+	@Query("select ip.armure from InventaireArmure ip where ip.armure.nom = :nom and ip.inventaire.id = :id")
+	Armure findArmureNameInInveantaire(@Param("nom") String nom, @Param("id") Long id);
+	
+	@Query("select ip from InventaireArmure ip where ip.armure.id = :idAr and ip.inventaire.id = :idInv")
+	InventaireArmure findInventaireArmureByIdArmureAndIdInv(@Param("idAr") Long idAr, @Param("idInv") Long idInv);
+	
 }

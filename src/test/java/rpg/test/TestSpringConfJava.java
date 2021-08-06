@@ -5,12 +5,18 @@ import java.util.Random;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import rpg.configuration.ApplicationConfig;
-import rpg.model.Inventaire;
+import rpg.model.Arme;
+import rpg.model.Armure;
+import rpg.model.InventaireArme;
+import rpg.model.InventaireArmure;
 import rpg.model.InventairePotion;
 import rpg.model.Objet;
 import rpg.model.Potion;
 import rpg.model.Utilisateur;
 import rpg.repository.IArmeRepository;
+import rpg.repository.IArmureRepository;
+import rpg.repository.IInventaireArmeRepository;
+import rpg.repository.IInventaireArmureRepository;
 import rpg.repository.IInventairePotionRepository;
 import rpg.repository.IInventaireRepository;
 import rpg.repository.IObjetRepository;
@@ -39,18 +45,55 @@ public class TestSpringConfJava {
 		context.close();
 	}
 	
-	public static void fouiller(Utilisateur u) {
+	public static void insertionArmeInInventaire(Arme a, Utilisateur u) {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		IInventaireArmeRepository inventaireArmeRepo = context.getBean(IInventaireArmeRepository.class);
+		
+		Arme armeInInventaire = inventaireArmeRepo.findArmeNameInInveantaire(a.getNom(), u.getInventaire().getId());
+		if(armeInInventaire==null) {
+			InventaireArme ia = new InventaireArme(1,a,u.getInventaire());
+			inventaireArmeRepo.save(ia);
+		}else {
+			InventaireArme ia = inventaireArmeRepo.findInventaireArmeByIdArmeAndIdInv(armeInInventaire.getId(), u.getInventaire().getId());
+			ia.setQuantite(ia.getQuantite()+1);
+			inventaireArmeRepo.save(ia);
+		}
+		context.close();
+
+	}
+	
+	public static void insertionArmureInInventaire(Armure a, Utilisateur u) {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		IInventaireArmureRepository inventaireArmureRepo = context.getBean(IInventaireArmureRepository.class);
+		
+		Armure armeInInventaire = inventaireArmureRepo.findArmureNameInInveantaire(a.getNom(), u.getInventaire().getId());
+		if(armeInInventaire==null) {
+			InventaireArmure ia = new InventaireArmure(1,a,u.getInventaire());
+			inventaireArmureRepo.save(ia);
+		}else {
+			InventaireArmure ia = inventaireArmureRepo.findInventaireArmureByIdArmureAndIdInv(armeInInventaire.getId(), u.getInventaire().getId());
+			ia.setQte(ia.getQte()+1);
+			inventaireArmureRepo.save(ia);
+		}
+		context.close();
+
+	}
+	
+	public static void fouiller(Utilisateur user) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		IUtilisateurRepository utilRepo = context.getBean(IUtilisateurRepository.class);
 		IInventaireRepository inventaireRepo = context.getBean(IInventaireRepository.class);
 		IObjetRepository objetRepo = context.getBean(IObjetRepository.class);
 		IPotionRepository potionRepo = context.getBean(IPotionRepository.class);
+		IArmeRepository armeRepo = context.getBean(IArmeRepository.class);
+		IArmureRepository armureRepo = context.getBean(IArmureRepository.class);
+
 		
 		System.out.println("Vous allez fouiller l'environnement");
-		System.out.println("Vous avez cinq possibilitées : Trouver une Arme/Armure ou Trouver une Potion ou Rien Trouver ou Trouver un objet ou Etre empoisonné");
+		System.out.println("Vous avez six possibilitées : Trouver une Arme ou une Armure ou une Potion ou Rien ou de l'or ou Etre empoisonné");
 		Random rand = new Random();
-		int jetDe = rand.nextInt(5); // jet de dé entre 0 et 6-1
-		jetDe=3;
+		int jetDe = rand.nextInt(6); // jet de dé entre 0 et 6-1
+		jetDe=5;
 		switch(jetDe) {
 		case 0:
 			System.out.println("Vous avez rien eu ! Dommage");
@@ -65,29 +108,37 @@ public class TestSpringConfJava {
 			objetRepo.save(orInInventaire);
 
 			break;
+			
 		case 2:
-			System.out.println("Vous recuperer une arme ou une armure");
+			System.out.println("Vous recuperer une arme");
+			
+			Arme armeFouille = armeRepo.findByName("Arme de fouille");
+			insertionArmeInInventaire(armeFouille,user);
+			
 			break;
-		case 3 : 
+		case 3:
+			System.out.println("Vous recuperer une armure");
+			
+			Armure armureFouille = armureRepo.findByName("Armure de fouille");
+			insertionArmureInInventaire(armureFouille,user);
+			
+			break;
+		case 4 : 
 			System.out.println("Vous recuperer une potion");
 			Potion potionFouille = potionRepo.findPotionByName("Potion de fouille");
-			insertPotionInInventaire(potionFouille,u);
+			insertPotionInInventaire(potionFouille,user);
 			break;
 			
-		case 4:
+		case 5:
 			System.out.println("Vous etes empoisonné");
 			int nbEmposonnement = 3;
-			u.setCptEmpoisonnement(nbEmposonnement);
-			utilRepo.save(u);
+			user.setCptEmpoisonnement(nbEmposonnement);
+			utilRepo.save(user);
 			break;
 		}
-
-		
-
-		
 		context.close();
-
 	}
+
 
 
 	public static void main(String[] args) {

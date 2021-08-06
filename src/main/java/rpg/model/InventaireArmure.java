@@ -43,6 +43,12 @@ public class InventaireArmure {
 		this.armure = armure;
 		this.inventaire = inventaire;
 	}
+	
+	public InventaireArmure( double qte, Armure armure, Inventaire inventaire) {
+		this.qte = qte;
+		this.armure = armure;
+		this.inventaire = inventaire;
+	}
 
 
 	public Long getId() {
