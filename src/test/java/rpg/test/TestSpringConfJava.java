@@ -202,6 +202,59 @@ public class TestSpringConfJava {
 		context.close();
 	}
 	public static void combatMonstreVSUser(Utilisateur user,Monstre m) {
+AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		
+		IUtilisateurRepository utilRepo = context.getBean(IUtilisateurRepository.class);
+		IInventaireRepository inventaireRepo = context.getBean(IInventaireRepository.class);
+		IObjetRepository objetRepo = context.getBean(IObjetRepository.class);
+		
+		boolean stop = true;
+
+		while(user.getVie()>=0 && m.getVie()>=0 && stop) {
+			m.attaquer(user);
+			System.out.println("Votre vie aprés son attaque est de  "+user.getVie());
+
+			System.out.println("Votre choix pour le combat");
+			System.out.println("1 - Attaquer");
+			System.out.println("2 - Utiliser une potion");
+			System.out.println("3 - fuir");
+			int choix = saisieInt("");
+			switch (choix) {
+			case 1:
+				System.out.println("C'est l'heure de l'attaque");
+				System.out.println("Votre vie avant l'attaque est de  "+user.getVie());
+				System.out.println("La vie du monstre est de "+m.getVie());
+				user.attaquer(m);
+				System.out.println("La vie du monstre aprés l'attaque est  de "+m.getVie());
+
+				if(user.getVie()<=0 || m.getVie()<=0) {
+					utilRepo.save(user);
+					stop=false;
+				}
+				
+				break;
+			case 2:
+				System.out.println("C'est l'heure de la potion");
+				
+				break;
+			case 3:
+				System.out.println("Cours "+user.getPseudo()+" cours !");
+				user.fuir();
+				Objet orInInventaire = inventaireRepo.findQteObjetForUserPseudo(user.getPseudo(), "or");
+				double qteOr = 1000;
+				double qte = orInInventaire.getQte()-qteOr;
+				orInInventaire.setQte(qte);
+				if(orInInventaire.getQte()<0) {
+					orInInventaire.setQte(0);
+				}
+				objetRepo.save(orInInventaire);
+				utilRepo.save(user);
+				stop = false;
+				break;
+			}
+		}
+		
+		context.close();
 		
 	}
 	public static void combat(Utilisateur user,Monstre m) {
