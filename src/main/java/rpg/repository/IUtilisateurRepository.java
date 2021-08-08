@@ -23,6 +23,9 @@ public interface IUtilisateurRepository extends JpaRepository<Utilisateur, Long>
 	@Query("select u.inventaire from Utilisateur u where u.pseudo = :pseudo")
 	Inventaire findInventaireByPseudoUser(@Param("pseudo") String pseudo);
 	
+	@Query("select u from Utilisateur u where u.mail = :mail and u.mdp = :mdp")
+	Utilisateur findUserByMailAndMdp(@Param("mail") String mail, @Param("mdp") String mdp);
+	
 	
 //	///////////////////////////////////////////////////
 //	/////////////////// Delete ////////////////////////

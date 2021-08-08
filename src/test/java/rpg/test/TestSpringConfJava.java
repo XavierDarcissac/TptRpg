@@ -6,9 +6,13 @@ import java.util.Scanner;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.mysql.cj.x.protobuf.MysqlxConnection.Close;
+
 import rpg.configuration.ApplicationConfig;
 import rpg.model.Arme;
 import rpg.model.Armure;
+import rpg.model.Hero;
+import rpg.model.Inventaire;
 import rpg.model.InventaireArme;
 import rpg.model.InventaireArmure;
 import rpg.model.InventairePotion;
@@ -413,7 +417,101 @@ public class TestSpringConfJava {
 		
 		context.close();
 	}
+	
+	public static String saisieString(String msg) 
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println(msg);
+		return sc.nextLine();
+	}
+	
+	public static void createUser() {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		IUtilisateurRepository utilRepo = context.getBean(IUtilisateurRepository.class);
+		IInventaireRepository inventaireRepo = context.getBean(IInventaireRepository.class);
+		
+		String mail = saisieString("Saisir votre mail  ");
+		String mdp = saisieString("Saisir votre mot de passe");
+		String pseudo = saisieString("Saisir votre pseudo");
+		Utilisateur u = new Utilisateur(pseudo,mail,mdp);
+		utilRepo.save(u);
+		context.close();
+	}
+	
+	public static void modifUserInfo(String mail,String mdp) {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		IUtilisateurRepository utilRepo = context.getBean(IUtilisateurRepository.class);
+		
+		Utilisateur u = utilRepo.findUserByMailAndMdp(mail,mdp);
+		String newPseudo;
+		String newMdp;
+		String newMail;
+		
+		System.out.println("Quelle modification faire ?");
+		System.out.println("1 - Changer pseudo");
+		System.out.println("2 - Changer de mot de passe");
+		System.out.println("3 - Changer de mail");
+		System.out.println("4 - Changer toutes les infos");
+		int choix = saisieInt("");
+		switch (choix) {
+		case 1:
+			 newPseudo = saisieString("Saisir le nouveau pseudo");
+			u.setPseudo(newPseudo);
+			break;
+		case 2:
+			newMdp = saisieString("Saisir nouveau mot de passe");
+			u.setMdp(newMdp);
+			break;
+		case 3:
+			 newMail = saisieString("Saisir nouveau mail");
+			u.setMail(newMail);
+			break;
+		case 4:
+			newPseudo = saisieString("Saisir le nouveau pseudo");
+			u.setPseudo(newPseudo);
+			newMdp = saisieString("Saisir nouveau mot de passe");
+			u.setMdp(newMdp);
+			newMail = saisieString("Saisir nouveau mail");
+			u.setMail(newMail);
+			break;
 
+		default:
+			break;
+		}
+		utilRepo.save(u);
+		context.close();
+	}
+
+	public static void addHeroForUser(Utilisateur user) {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		IPersonnageRepository heroRepo = context.getBean(IPersonnageRepository.class);
+		IUtilisateurRepository utilRepo = context.getBean(IUtilisateurRepository.class);
+
+		
+		List<Hero> listeHero =  heroRepo.findAllHero();
+		int i=0;
+		for(Hero h : listeHero) {
+			System.out.println("Hero numero " + i);
+			System.out.println(h.toString());
+			i = i+1;
+		}
+		int choix = saisieInt("Votre choix de hero (numero hero)");
+		Hero h = listeHero.get(choix);
+		user.setHero(h);
+		user.setVie(h.getVie());
+		user.setVieMax(h.getVie());
+		user.setAttaque(h.getAttaque());
+		user.setAttaqueMax(h.getAttaque());
+		user.setDefense(h.getDefense());
+		user.setDefenseMax(h.getDefense());
+		user.setVitesse(h.getVitesse());
+		user.setVitesseMax(h.getVitesse());
+		user.setPrecision(h.getPrecision());
+		user.setPrecisionMax(h.getPrecision());
+		
+		utilRepo.save(user);
+		context.close();
+	}
 
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
@@ -462,16 +560,15 @@ public class TestSpringConfJava {
 //		Arme a = new Arme("epee toto",TypeArme.lance,"",10,5,0,0);
 //		armeRepo.save(a);
 //		Arme aF = armeRepo.findById(a.getId()).get();
+		
+		//createUser();
 //		
-		Utilisateur uTest = utilRepo.findByPseudo("Toto le boss");
+		Utilisateur uTest = utilRepo.findByPseudo("pseudo");
+		addHeroForUser(uTest);
 		Monstre mTest = (Monstre) monstreRepo.findById((long) 1).get();
 		//fouiller(uTest);
 		//combat(uTest,mTest);
 		//changerEquipement(uTest);
-		uTest.setMail("totoLeBoss@boss.com");
-		uTest.setMdp("MotDePasse");
-		uTest.setPseudo("Toto le boss");
-		//utilRepo.save(uTest);
 		
 //		System.out.println(uTest.getId());
 //		Arme a = uTest.getArme();

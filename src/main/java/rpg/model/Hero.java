@@ -204,7 +204,7 @@ public class Hero extends Personnage{
 		return "Hero [typePersonnage=" + typePersonnage + ", coefAttaque=" + coefAttaque + ", coefDefense="
 				+ coefDefense + ", coefVie=" + coefVie + ", coefPrecision=" + coefPrecision + ", coefVitesse="
 				+ coefVitesse + ", attaque=" + attaque + ", defense=" + defense + ", vie=" + vie + ", agilite="
-				+ agilite + ", vitesse=" + vitesse + ", utilisateur=" +  "]";
+				+ agilite + ", vitesse=" + vitesse +  "]";
 	}
 	
 	

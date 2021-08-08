@@ -41,6 +41,7 @@ public class Inventaire {
 	public Inventaire() {
 		super();
 	}
+	
 
 	public Inventaire(Objet objet, Utilisateur utilisateur, List<InventairePotion> inventairePotion,
 			List<InventaireArme> inventaireArme, List<InventaireArmure> inventaireArmure) {
@@ -49,6 +50,10 @@ public class Inventaire {
 		this.inventairePotion = inventairePotion;
 		this.inventaireArme = inventaireArme;
 		this.inventaireArmure = inventaireArmure;
+	}
+
+	public Inventaire(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 	
