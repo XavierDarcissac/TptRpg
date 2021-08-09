@@ -6,8 +6,6 @@ import java.util.Scanner;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.mysql.cj.x.protobuf.MysqlxConnection.Close;
-
 import rpg.configuration.ApplicationConfig;
 import rpg.model.Arme;
 import rpg.model.Armure;
@@ -21,6 +19,8 @@ import rpg.model.Objet;
 import rpg.model.Potion;
 import rpg.model.TypeArme;
 import rpg.model.TypeArmure;
+import rpg.model.TypeMonstre;
+import rpg.model.TypePersonnage;
 import rpg.model.Utilisateur;
 import rpg.repository.IArmeRepository;
 import rpg.repository.IArmureRepository;
@@ -556,6 +556,106 @@ public class TestSpringConfJava {
 		context.close();
 	}
 
+	public static void addHero() {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		IPersonnageRepository persoRepo = context.getBean(IPersonnageRepository.class);
+
+		Hero h = new Hero();
+		
+		String nom = saisieString("nom hero");
+		h.setNom(nom);
+		for (TypePersonnage myVar : TypePersonnage.values()) {
+			  System.out.println("type Hero : "+myVar); 
+			}
+		String type = saisieString("Saisir le type de l'hero");
+		TypePersonnage typePerso = TypePersonnage.valueOf(type);
+		h.setTypePersonnage(typePerso);
+		
+		double info = saisieDouble("Attaque");
+		h.setAttaque(info);
+		info = saisieDouble("Defense");
+		h.setDefense(info);
+		info = saisieDouble("Vie");
+		h.setVie(info);
+		info = saisieDouble("agilite/precision");
+		h.setPrecision(info);
+		info = saisieDouble("Vitesse");
+		h.setVitesse(info);
+		
+		info = saisieDouble("Coef attaque");
+		h.setCoefAttaque(info);
+		info = saisieDouble("Coef defense");
+		h.setCoefDefense(info);
+		info = saisieDouble("Coef vie");
+		h.setCoefVie(info);
+		info = saisieDouble("Coef presision/agilite");
+		h.setCoefPrecision(info);
+		info = saisieDouble("Coef vitesse");
+		h.setCoefVitesse(info);
+	
+		persoRepo.save(h);
+		context.close();
+	}
+	
+	public static void addMonstre() {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		IPersonnageRepository persoRepo = context.getBean(IPersonnageRepository.class);
+		IArmeRepository armeRepo = context.getBean(IArmeRepository.class);
+		IArmureRepository armureRepo = context.getBean(IArmureRepository.class);
+		
+		Monstre m = new Monstre();
+		
+		String nom = saisieString("nom Monstre");
+		m.setNom(nom);
+		for (TypePersonnage myVar : TypePersonnage.values()) {
+			  System.out.println("type Hero : "+myVar); 
+			}
+		String type = saisieString("Saisir le type de l'hero");
+		TypeMonstre typePerso = TypeMonstre.valueOf(type);
+		m.setTypeMonstre(typePerso);
+		
+		double info = saisieDouble("Attaque");
+		m.setAttaque(info);
+		info = saisieDouble("Defense");
+		m.setDefense(info);
+		info = saisieDouble("Vie");
+		m.setVie(info);
+		info = saisieDouble("agilite/precision");
+		m.setPrecision(info);
+		info = saisieDouble("Vitesse");
+		m.setVitesse(info);
+		
+		int infoInt = saisieInt("Gold");
+		m.setGold(infoInt);
+		infoInt=saisieInt("exp monstre");
+		m.setExp(infoInt);
+		
+		List<Arme> listeArme = armeRepo.findAll();
+		List<Armure> listeArmure = armureRepo.findAll();
+
+		int i=0;
+		for(Arme a : listeArme) {
+			System.out.println("Numéro Arme "+i);
+			System.out.println(a.toString());
+			System.out.println();
+			i=i+1;
+		}
+		int choixEquipement=saisieInt("Quelle Arme voulez vous ? saisir le numéro de l'arme");
+		m.setArme(listeArme.get(choixEquipement));
+		
+		i=0;
+		for(Armure a : listeArmure) {
+			System.out.println("Numéro Armure "+i);
+			System.out.println(a.toString());
+			System.out.println();
+			i=i+1;
+		}
+		choixEquipement=saisieInt("Quelle Arme voulez vous ? saisir le numéro de l'arme");
+		m.setArmure(listeArmure.get(choixEquipement));
+		
+		persoRepo.save(m);
+		context.close();
+	}
 	
 	public static void ajoutArmure() {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
