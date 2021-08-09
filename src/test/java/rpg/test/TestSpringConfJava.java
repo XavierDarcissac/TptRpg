@@ -486,6 +486,11 @@ public class TestSpringConfJava {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		IPersonnageRepository heroRepo = context.getBean(IPersonnageRepository.class);
 		IUtilisateurRepository utilRepo = context.getBean(IUtilisateurRepository.class);
+		IArmeRepository armeRepo = context.getBean(IArmeRepository.class);
+		IArmureRepository armureRepo = context.getBean(IArmureRepository.class);
+		IInventaireRepository inventaireRepo = context.getBean(IInventaireRepository.class);
+		IInventaireArmeRepository inventaireArmeRepo = context.getBean(IInventaireArmeRepository.class);
+		IInventaireArmureRepository inventaireArmureRepo = context.getBean(IInventaireArmureRepository.class);
 
 		
 		List<Hero> listeHero =  heroRepo.findAllHero();
@@ -509,10 +514,41 @@ public class TestSpringConfJava {
 		user.setPrecision(h.getPrecision());
 		user.setPrecisionMax(h.getPrecision());
 		
+		Arme arme = armeRepo.findByName("Arme default");
+		Armure armure = armureRepo.findByName("Armure default");
+		
+		user.setArme(arme);
+		user.setArmure(armure);
+		
+		Inventaire inventaire = new Inventaire();
+		inventaireRepo.save(inventaire);
+		
+		inventaire= inventaireRepo.findById(inventaire.getId()).get();
+		
+		user.setInventaire(inventaire);
+		inventaire.setUtilisateur(user);
+		inventaireRepo.save(inventaire);
+		
+		InventaireArme invArme = new InventaireArme();
+		invArme.setArme(arme);
+		invArme.setQuantite(1);
+		invArme.setInventaire(inventaire);
+		
+		inventaireArmeRepo.save(invArme);
+		
+		InventaireArmure invArmure = new InventaireArmure();
+		invArmure.setArmure(armure);
+		invArmure.setInventaire(inventaire);
+		invArmure.setQte(1);
+		
+		inventaireArmureRepo.save(invArmure);
+		
 		utilRepo.save(user);
 		context.close();
 	}
 
+	
+	
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 
@@ -561,9 +597,9 @@ public class TestSpringConfJava {
 //		armeRepo.save(a);
 //		Arme aF = armeRepo.findById(a.getId()).get();
 		
-		//createUser();
+		createUser();
 //		
-		Utilisateur uTest = utilRepo.findByPseudo("pseudo");
+		Utilisateur uTest = utilRepo.findByPseudo("pseudo1");
 		addHeroForUser(uTest);
 		Monstre mTest = (Monstre) monstreRepo.findById((long) 1).get();
 		//fouiller(uTest);
