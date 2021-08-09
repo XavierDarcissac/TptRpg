@@ -19,6 +19,8 @@ import rpg.model.InventairePotion;
 import rpg.model.Monstre;
 import rpg.model.Objet;
 import rpg.model.Potion;
+import rpg.model.TypeArme;
+import rpg.model.TypeArmure;
 import rpg.model.Utilisateur;
 import rpg.repository.IArmeRepository;
 import rpg.repository.IArmureRepository;
@@ -39,6 +41,13 @@ public class TestSpringConfJava {
 		Scanner sc=new Scanner(System.in);
 		System.out.println(msg);
 		return sc.nextInt();
+	}
+	
+	public static double saisieDouble(String msg) 
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println(msg);
+		return sc.nextDouble();
 	}
 	
 	public static void insertPotionInInventaire(Potion p, Utilisateur u) {
@@ -548,17 +557,75 @@ public class TestSpringConfJava {
 	}
 
 	
+	public static void ajoutArmure() {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		IArmureRepository armureRepo = context.getBean(IArmureRepository.class);
+
+		Armure a = new Armure();
+
+		String nom = saisieString("nom armure");
+		a.setNom(nom);
+		String description = saisieString("Description armure");
+		a.setDescription(description);
+	
+		for (TypeArmure myVar : TypeArmure.values()) {
+			  System.out.println("type armure : "+myVar); 
+			}
+		String typeArmure = saisieString("Saisir le type de l'armure");
+		TypeArmure type = TypeArmure.valueOf(typeArmure);
+		
+		a.setTypearmure(type);
+		
+		double def = saisieDouble("Puissance defense");
+		a.setDefense(def);
+		double vitesse = saisieDouble("vitesse armure");
+		a.setVitesse(vitesse);
+		double prixAchat = saisieDouble("Prix achat");
+		a.setPrixAchat(prixAchat);
+		double prixVente = saisieDouble("Prix vente");
+		a.setPrixVente(prixVente);
+		
+		armureRepo.save(a);
+		context.close();
+	}
+	
+	public static void ajoutArme() {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		IArmeRepository armeRepo = context.getBean(IArmeRepository.class);
+		Arme a = new Arme();
+		
+		String nom = saisieString("nom arme");
+		a.setNom(nom);
+		String description = saisieString("Description arme");
+		a.setDescription(description);
+	
+		for (TypeArme myVar : TypeArme.values()) {
+			  System.out.println("type arme : "+myVar); 
+			}
+		String typeArme = saisieString("Saisir le type de l'arme");
+		TypeArme type = TypeArme.valueOf(typeArme);
+		
+		a.setTypeArme(type);
+		
+		double att = saisieDouble("Puissance attaque");
+		a.setAttaque(att);
+		double precision = saisieDouble("Agilite/Presision arme");
+		a.setAgilite(precision);
+		double prixAchat = saisieDouble("Prix achat");
+		a.setPrixAchat(prixAchat);
+		double prixVente = saisieDouble("Prix vente");
+		a.setPrixVente(prixVente);
+		
+		armeRepo.save(a);
+		context.close();
+	}
+	
 	
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 
 		IUtilisateurRepository utilRepo = context.getBean(IUtilisateurRepository.class);
 		IPersonnageRepository monstreRepo = context.getBean(IPersonnageRepository.class);
-
-		//
-//				Matiere html = new Matiere("HTML", 2);
-		//
-//				html = matiereRepo.save(html);
 		
 //		Potion p = new Potion();
 //		p.setType(TypePotion.Soigner);
@@ -597,15 +664,28 @@ public class TestSpringConfJava {
 //		armeRepo.save(a);
 //		Arme aF = armeRepo.findById(a.getId()).get();
 		
-		createUser();
-//		
+	
+	
+	
+/////////////////////////////////////////////////////////	
+/////////////////////// TEST ALGO ///////////////////////
+/////////////////////////////////////////////////////////
+	
+		//createUser();	
 		Utilisateur uTest = utilRepo.findByPseudo("pseudo1");
-		addHeroForUser(uTest);
+		//addHeroForUser(uTest);
+		//ajoutArme();
+		ajoutArmure();
 		Monstre mTest = (Monstre) monstreRepo.findById((long) 1).get();
 		//fouiller(uTest);
 		//combat(uTest,mTest);
 		//changerEquipement(uTest);
 		
+		
+/////////////////////////////////////////////////////////	
+/////////////////////////////////////////////////////////
+		
+
 //		System.out.println(uTest.getId());
 //		Arme a = uTest.getArme();
 //		System.out.println(a.getAttaque());
