@@ -607,10 +607,10 @@ public class TestSpringConfJava {
 		
 		String nom = saisieString("nom Monstre");
 		m.setNom(nom);
-		for (TypePersonnage myVar : TypePersonnage.values()) {
-			  System.out.println("type Hero : "+myVar); 
+		for (TypeMonstre myVar : TypeMonstre.values()) {
+			  System.out.println("type Monstre : "+myVar); 
 			}
-		String type = saisieString("Saisir le type de l'hero");
+		String type = saisieString("Saisir le type de Monstre");
 		TypeMonstre typePerso = TypeMonstre.valueOf(type);
 		m.setTypeMonstre(typePerso);
 		
@@ -775,7 +775,9 @@ public class TestSpringConfJava {
 		Utilisateur uTest = utilRepo.findByPseudo("pseudo1");
 		//addHeroForUser(uTest);
 		//ajoutArme();
-		ajoutArmure();
+		//ajoutArmure();
+		//addHero();
+		addMonstre();
 		Monstre mTest = (Monstre) monstreRepo.findById((long) 1).get();
 		//fouiller(uTest);
 		//combat(uTest,mTest);
