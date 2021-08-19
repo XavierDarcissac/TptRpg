@@ -37,6 +37,12 @@ public class Objet {
 		this.inventaire = inventaire;
 	}
 
+	public Objet( String nom,int qte) {
+		this.nom = nom;
+		this.qte = qte;
+		}
+
+
 	public Long getId() {
 		return id;
 	}
