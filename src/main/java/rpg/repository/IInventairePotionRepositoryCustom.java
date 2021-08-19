@@ -1,5 +1,5 @@
 package rpg.repository;
 
-public class IInventairePotionRepositoryCustom {
+public interface IInventairePotionRepositoryCustom {
 
 }

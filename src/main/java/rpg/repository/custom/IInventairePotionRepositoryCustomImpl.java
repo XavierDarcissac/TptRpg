@@ -23,7 +23,7 @@ public class IInventairePotionRepositoryCustomImpl implements IPotionRepositoryC
 		return query.getFirstResult();
 		
 	}
-	
+
 
 	
 }

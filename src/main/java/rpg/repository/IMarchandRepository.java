@@ -6,4 +6,5 @@ import rpg.model.Marchand;
 
 public interface IMarchandRepository extends JpaRepository<Marchand, Long> {
 
+
 }
