@@ -36,6 +36,13 @@ public class InventairePotion {
 		this.inventaire = inventaire;
 		this.potion = potion;
 	}
+	
+	public InventairePotion(double qte, Inventaire inventaire, Potion potion) {
+		this.qte = qte;
+		this.inventaire = inventaire;
+		this.potion = potion;
+	}
+
 
 	
 	public Long getId() {

@@ -1,6 +1,7 @@
 package rpg.model;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -186,6 +187,57 @@ public class Monstre extends Personnage {
 		return "Monstre [typeMonstre=" + typeMonstre + ", attaque=" + attaque + ", defense=" + defense + ", vie=" + vie
 				+ ", agilite=" + agilite + ", vitesse=" + vitesse + ", gold=" + gold + ", exp=" + exp + ", arme="
 				+ arme + ", armure=" + armure + "]";
+	}
+	
+	public double defendre() {
+		double def=0;
+		Random rand = new Random();
+		double scale = Math.pow(10, 0);
+		double coef;
+		int jetDe = rand.nextInt(6); // jet de dé entre 0 et 6-1
+		if(jetDe <3) {
+			def = this.defense+this.getArmure().getDefense();
+		}else {		
+			coef = this.vitesse/this.getArmure().getVitesse();
+			coef = Math.round(coef*scale)/scale;
+			def = this.defense+this.getArmure().getDefense() * coef;
+		}
+		return def;
+	}
+	
+	public void attaquer(Utilisateur u) {
+		Random rand = new Random();
+		double att;
+		double coef;
+		double scale = Math.pow(10, 0);
+		double vieUtilisateur = u.getVie();
+		
+		int jetDe = rand.nextInt(6);
+		if(jetDe<3) {
+			att = this.attaque+this.getArme().getAttaque();
+			double def = u.defendre();
+			vieUtilisateur = vieUtilisateur+def-att;
+			vieUtilisateur = vieUtilisateur-def;
+			if(vieUtilisateur<0) {
+				u.setVie(0);
+			}else {
+				u.setVie(vieUtilisateur);
+			}
+		}else {
+			coef = this.agilite/this.getArme().getAgilite();
+			coef = Math.round(coef*scale)/scale;
+			att = this.attaque+this.getArme().getAttaque()*coef;
+			double def = u.defendre();
+			vieUtilisateur = vieUtilisateur+def-att;
+			vieUtilisateur = vieUtilisateur-def;
+			if(vieUtilisateur<0) {
+				u.setVie(0);
+			}else {
+				u.setVie(vieUtilisateur);
+
+			}
+			
+		}
 	}
 	
 	

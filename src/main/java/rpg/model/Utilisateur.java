@@ -1,5 +1,8 @@
 package rpg.model;
 
+import java.util.Random;
+import java.util.Scanner;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -71,6 +74,8 @@ public class Utilisateur extends Compte {
 	private int cptMonstreVaincu;
 	@Column()
 	private int exp;
+	
+	
 	public Utilisateur() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -83,6 +88,8 @@ public class Utilisateur extends Compte {
 		super(pseudo, mail, mdp);
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	public Utilisateur(Long id, int version, String pseudo, String mail, String mdp, Hero hero, Inventaire inventaire, Arme arme, Armure armure, Histoire histoire, double vie,
 			double attaque, double defense, double agilite, double vitesse, double vieMax, double attaqueMax,
 			double defenseMax, double agiliteMax, double vitesseMax, int cptEmpoisonnement, int cptEtourdissement,
@@ -291,7 +298,222 @@ public class Utilisateur extends Compte {
 				+ ", cptCombatGagne=" + cptCombatGagne + ", cptMonstreVaincu=" + cptMonstreVaincu + ", exp=" + exp
 				+ "]";
 	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////// METHOD Pour le jeu ////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public static int saisieInt(String msg) 
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println(msg);
+		return sc.nextInt();
+	}
 	
 	
+	/*
+	 * Objectif : Retablir l'ensemble des attributs aux valeurs maximums
+	 * Parametre : 
+	 * 
+	 */
+	
+	public void reposTotal()
+	{
+		if(this.vie != this.vieMax) {
+			this.vie = this.vieMax;
+		}
+		
+		if(this.attaque != this.attaqueMax) {
+			this.attaque = this.attaqueMax;
+		}
+		
+		if(this.defense != this.defenseMax) {
+			this.defense = this.defenseMax;
+		}
+		
+		if(this.agilite != this.agiliteMax) {
+			this.agilite = this.agiliteMax;
+		}
+		
+		if(this.vitesse != this.vitesseMax) {
+			this.vitesse = this.vitesseMax;
+		}
+		
+		if(this.cptEmpoisonnement != 0) {
+			this.cptEmpoisonnement = 0;
+		}
+		
+		if(this.cptEtourdissement != 0) {
+			this.cptEtourdissement = 0;
+		}
+		
+		if(this.cptSaignement != 0) {
+			this.cptSaignement = 0;
+		}
+		
+		if(this.cptBrulure != 0) {
+			this.cptBrulure = 0;
+		}
 
+	}
+	
+	/*
+	 * Objectif : Menu permettand de choisir quels attributs restaurer
+	 * Parametre : 
+	 * 
+	 */
+	public void seReposer() {
+		System.out.println("Vous comptez vous reposer!");
+		System.out.println("1 - Se reposer totalement (retablir tous ses attributs aux maximums)");
+		System.out.println("2 - Se reposer partiellement (uniquement la vie)");
+		int choix = saisieInt("");
+		switch(choix) {
+		case 1:	reposTotal();
+			break;
+		case 2 : 
+			if(this.vie != this.vieMax) {
+				this.vie=this.vieMax;
+			}else {
+				System.out.println("Votre vie est déjà aux maximum.");
+			}
+			break;
+		}
+	}
+	
+	public void utiliserPotion(Potion p){
+		switch(p.getType().toString()) {
+		case "Soigner":
+			this.vie = this.vie+p.getValeur();
+			if(this.vie>this.vieMax) {
+				this.vie=this.vieMax;
+			}
+			break;
+		case "AttaquePlus" : 
+			this.attaque = this.attaque+p.getValeur();
+			if(this.attaque>this.attaqueMax) {
+				this.attaque=this.attaqueMax;
+			}
+			break;
+		case "VitessePlus":
+			this.vitesse = this.vitesse+p.getValeur();
+			if(this.vitesse>this.vitesseMax) {
+				this.vitesse=this.vitesseMax;
+			}
+			break;
+		case "DefensePlus" : 
+			this.defense = this.defense+p.getValeur();
+			if(this.defense>this.defenseMax) {
+				this.defense=this.defenseMax;
+			}
+			break;
+		case "AgilitePlus":
+			this.agilite = this.agilite+p.getValeur();
+			if(this.agilite>this.agiliteMax) {
+				this.agilite=this.agiliteMax;
+			}
+			break;
+			
+		case "PoisonMoins" : 
+			this.cptEmpoisonnement = (int) (this.cptEmpoisonnement-p.getValeur());
+			if(this.cptEmpoisonnement<0) {
+				this.cptEmpoisonnement=0;
+			} 
+			break;
+		case "SaignerMoins":
+			this.cptSaignement = (int) (this.cptSaignement-p.getValeur());
+			if(this.cptSaignement<0) {
+				this.cptSaignement=0;
+			} 
+			break;
+		case "BrulureMoins" : 
+			this.cptBrulure = (int) (this.cptBrulure-p.getValeur());
+			if(this.cptBrulure<0) {
+				this.cptBrulure=0;
+			} 
+			break;
+		case "EtourdissementMoins" : 
+			this.cptEtourdissement = (int) (this.cptEtourdissement-p.getValeur());
+			if(this.cptEtourdissement<0) {
+				this.cptEtourdissement=0;
+			} 
+			break;
+		}
+	}
+	
+	
+	public void attaquer(Monstre m) {
+		Random rand = new Random();
+		double att;
+		double coef;
+		double scale = Math.pow(10, 0);
+		double vieMonstre = m.getVie();
+		
+		int jetDe = rand.nextInt(6); // jet de dé entre 0 et 6-1
+		if(jetDe <2) {
+			att = (this.attaque)+ this.getArme().getAttaque();
+	        att = Math.round(att*scale)/scale;
+		}else if(jetDe>=4) {
+			coef = this.getHero().getCoefPrecision()*this.getPrecision();
+			if(coef>(this.getHero().getCoefAttaque()*this.attaque)) {
+				coef = (this.getHero().getCoefAttaque()*this.attaque) / coef;
+			}else {
+				coef = coef/(this.getHero().getCoefAttaque()*this.attaque);
+			}
+			att = ((this.getHero().getCoefAttaque()*this.attaque)+ this.getArme().getAttaque() )*(1+coef);
+	        att = Math.round(att*scale)/scale;
+	       
+		}else {			
+			att = (this.getHero().getCoefAttaque()*this.attaque)+ this.getArme().getAttaque();
+	        att = Math.round(att*scale)/scale;		
+		}
+		
+		double def = m.defendre();
+		vieMonstre = vieMonstre+def -att;
+		vieMonstre=vieMonstre-def;
+		if(vieMonstre<0) {
+			m.setVie(0);
+		}else {
+			m.setVie(vieMonstre);
+		}
+	}
+	
+	public double defendre() {
+		double def=0;
+		Random rand = new Random();
+		double scale = Math.pow(10, 0);
+		double coef;
+		int jetDe = rand.nextInt(6); // jet de dé entre 0 et 6-1
+		if(jetDe<2) {
+			def = this.defense+this.getArmure().getDefense();
+			def = Math.round(def*scale)/scale;
+		}else if(jetDe>=4) {
+			coef = this.getHero().getCoefVitesse()*this.getVitesse();
+			if(coef>(this.getHero().getCoefDefense()*this.defense)) {
+				coef = (this.getHero().getCoefDefense()*this.defense) / coef;
+			}else {
+				coef = coef/(this.getHero().getCoefDefense()*this.defense);
+			}
+			def = ((this.getHero().getCoefDefense()*this.defense)+ this.getArmure().getDefense() )*(1+coef);
+			def = Math.round(def*scale)/scale;
+
+		}else {
+			coef = this.vitesse/this.getArmure().getVitesse();
+			coef = Math.round(coef*scale)/scale; // si coef <1 ==> armure trop lourde et vitesse reduite
+			def = ((this.getHero().getCoefDefense()*this.defense)+this.getArmure().getDefense()) * coef;
+			def = Math.round(def*scale)/scale;
+		}
+		return def;
+	}
+	
+	public void fuir() {
+		System.out.println("Vous voulez fuir");
+		System.out.println("1 - Oui");
+		System.out.println("2 - Non");
+		int choix = saisieInt("");
+		if(choix==1) {
+			System.out.println("Vous allez perdre votre arme et armure portées lors du combat et de l'or");
+			this.setArmure(null);
+			this.setArme(null);
+			//Lors de l'appel de la methode, utiliser le repository inventaire et la fonction findQteObjetForUserPseudo afin d'enlever l'or
+		}
+	}
+	
 }

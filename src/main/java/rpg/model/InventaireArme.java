@@ -40,6 +40,13 @@ public class InventaireArme {
 		super();
 	}
 
+	public InventaireArme( double quantite, Arme arme, Inventaire inventaire) {
+		super();
+		this.quantite = quantite;
+		this.arme = arme;
+		this.inventaire = inventaire;
+	}
+
 	public Long getId() {
 		return id;
 	}
