@@ -182,8 +182,7 @@ public class Arme{
 	public String toString() {
 		return "Arme [id=" + id + ", version=" + version + ", nom=" + nom + ", typeArme=" + typeArme + ", description="
 				+ description + ", attaque=" + attaque + ", agilite=" + agilite + ", prixAchat=" + prixAchat
-				+ ", prixVente=" + prixVente + ", marchandArmes=" + marchandArmes + ", inventaireArme=" + inventaireArme
-				+ "]";
+				+ ", prixVente=" + prixVente+"]";
 	}
 
 	

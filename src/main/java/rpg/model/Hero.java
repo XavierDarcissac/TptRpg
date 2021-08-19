@@ -89,6 +89,22 @@ public class Hero extends Personnage{
 	
 	}
 
+	public Hero(TypePersonnage typePersonnage, double coefAttaque, double coefDefense, double coefVie,
+			double coefPrecision, double coefVitesse, double attaque, double defense, double vie, double agilite,
+			double vitesse) {
+		this.typePersonnage = typePersonnage;
+		this.coefAttaque = coefAttaque;
+		this.coefDefense = coefDefense;
+		this.coefVie = coefVie;
+		this.coefPrecision = coefPrecision;
+		this.coefVitesse = coefVitesse;
+		this.attaque = attaque;
+		this.defense = defense;
+		this.vie = vie;
+		this.agilite = agilite;
+		this.vitesse = vitesse;
+	
+	}
 
 
 
@@ -179,6 +195,8 @@ public class Hero extends Personnage{
 	public void setVitesse(double vitesse) {
 		this.vitesse = vitesse;
 	}
+	
+	
 
 
 	@Override
@@ -186,7 +204,7 @@ public class Hero extends Personnage{
 		return "Hero [typePersonnage=" + typePersonnage + ", coefAttaque=" + coefAttaque + ", coefDefense="
 				+ coefDefense + ", coefVie=" + coefVie + ", coefPrecision=" + coefPrecision + ", coefVitesse="
 				+ coefVitesse + ", attaque=" + attaque + ", defense=" + defense + ", vie=" + vie + ", agilite="
-				+ agilite + ", vitesse=" + vitesse + ", utilisateur=" +  "]";
+				+ agilite + ", vitesse=" + vitesse +  "]";
 	}
 	
 	

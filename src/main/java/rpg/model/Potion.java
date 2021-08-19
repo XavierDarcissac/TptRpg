@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "InventairePotion")
+@Table(name = "Potion")
 public class Potion {
 
 	@Id
@@ -126,8 +126,7 @@ public class Potion {
 	@Override
 	public String toString() {
 		return "Potion [id=" + id + ", nom=" + nom + ", type=" + type + ", valeur=" + valeur + ", prixAchat="
-				+ prixAchat + ", prixVente=" + prixVente + ", inventairePotions=" + inventairePotions
-				+ ", marchandPotions=" + marchandPotions + "]";
+				+ prixAchat + ", prixVente=" + prixVente + "]";
 	}
 
 	

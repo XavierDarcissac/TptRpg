@@ -8,6 +8,8 @@ import rpg.model.Arme;
 
 public interface IArmeRepository extends JpaRepository<Arme, Long> {
 
+	@Query("select a from Arme a where a.nom = :nom")
+	Arme findByName(@Param("nom") String nom);
 	
 	@Query("SELECT a FROM Arme a ORDER BY a.PrixAchat ASC")
 	Arme orderByBuyingPriceAsc();

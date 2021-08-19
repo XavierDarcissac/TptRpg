@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import rpg.model.Potion;
 
 public interface IPotionRepository  extends JpaRepository<Potion, Long>{
+	@Query("select p from Potion p where p.nom = :nom")
+	Potion findPotionByName(@Param("nom") String nom);
 	
 	@Query("SELECT p FROM Potion p ORDER BY p.PrixAchat ASC")
 	Potion orderByBuyingPriceAsc();

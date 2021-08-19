@@ -1,5 +1,5 @@
 package rpg.model;
 
 public enum TypePotion {
-	PAIN_AU_CHOCOLAT, CHOCOLATINE, CROISSANT;
+	Soigner, AttaquePlus, VitessePlus,DefensePlus, AgilitePlus,PoisonMoins,SaignerMoins,BrulureMoins,EtourdissementMoins;
 }

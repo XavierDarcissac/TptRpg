@@ -34,4 +34,6 @@ public interface IArmureRepository extends JpaRepository<Armure, Long> {
 	
 	@Query("SELECT a.PrixAchat FROM Armure a where a.nom = :nom")
 	Armure findArmureBuyingPriceFromName(@Param("nom") Long nom);
+	@Query("select a from Armure a where a.nom = :nom")
+	Armure findByName(@Param("nom") String nom);
 }

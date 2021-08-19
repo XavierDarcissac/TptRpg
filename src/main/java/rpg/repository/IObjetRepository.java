@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import rpg.model.Objet;
 
 public interface IObjetRepository extends JpaRepository<Objet, Long>{
+	@Query("select o.id from Objet o where o.nom = :nom")
+	Integer findIdObjetForNom(@Param("nom") String nom);
 
 	
 	@Query("SELECT o FROM Objet o ORDER BY o.PrixAchat ASC")
